@@ -1,0 +1,35 @@
+Class documentation
+<---- javadoc command: ---->
+D:\coding\Greenfoot\jdk\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-protected
+-Xdoclint:none
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+17
+-classpath
+D:\coding\Greenfoot\lib\greenfoot.jar;D:\coding\Greenfoot\lib\javafx-base-20.0.1-win.jar;D:\coding\Greenfoot\lib\javafx-base-20.0.1.jar;D:\coding\Greenfoot\lib\javafx-controls-20.0.1-win.jar;D:\coding\Greenfoot\lib\javafx-controls-20.0.1.jar;D:\coding\Greenfoot\lib\javafx-fxml-20.0.1-win.jar;D:\coding\Greenfoot\lib\javafx-graphics-20.0.1-win.jar;D:\coding\Greenfoot\lib\javafx-graphics-20.0.1.jar;D:\coding\Greenfoot\lib\javafx-media-20.0.1-win.jar;D:\coding\Greenfoot\lib\javafx-media-20.0.1.jar;D:\coding\Greenfoot\lib\javafx-swing-20.0.1-win.jar;D:\coding\Greenfoot\lib\javafx-web-20.0.1-win.jar;D:\coding\Greenfoot\lib\junit-4.12.jar;D:\coding\Greenfoot\lib\junit-jupiter-5.5.2.jar;D:\coding\Greenfoot\lib\junit-jupiter-api-5.5.2.jar;D:\coding\Greenfoot\lib\junit-jupiter-engine-5.5.2.jar;D:\coding\Greenfoot\lib\junit-jupiter-params-5.5.2.jar;D:\coding\Greenfoot\lib\junit-platform-commons-1.5.2.jar;D:\coding\Greenfoot\lib\junit-platform-engine-1.5.2.jar;D:\coding\Greenfoot\lib\junit-platform-launcher-1.5.2.jar;D:\coding\Greenfoot\lib\junit-platform-suite-api-1.5.2.jar;D:\coding\Greenfoot\lib\junit-vintage-engine-5.5.2.jar;D:\coding\Greenfoot\lib\hamcrest-core-1.3.jar;D:\coding\Greenfoot\lib\opentest4j-1.2.0.jar;D:\coding\Greenfoot\lib\bluej.jar;D:\coding\Greenfoot\lib\classgraph-4.8.90.jar;D:\coding\Greenfoot\lib\diffutils-1.2.1.jar;D:\coding\Greenfoot\lib\commons-logging-1.2.jar;D:\coding\Greenfoot\lib\jl1.0.1.jar;D:\coding\Greenfoot\lib\opencsv-2.3.jar;D:\coding\Greenfoot\lib\opencsv-2.4.jar;D:\coding\Greenfoot\lib\xom-1.3.7.jar;D:\coding\Greenfoot\lib\lang-stride.jar;D:\coding\Greenfoot\lib\nsmenufx-2.1.8.jar;D:\coding\Greenfoot\lib\wellbehavedfx-0.3.3.jar;D:\coding\Greenfoot\lib\guava-17.0.jar;D:\coding\Greenfoot\lib\httpclient-4.5.13.jar;D:\coding\Greenfoot\lib\httpcore-4.4.13.jar;D:\coding\Greenfoot\lib\httpmime-4.1.1.jar;D:\coding\Greenfoot\lib\javafx\javafx.base.jar;D:\coding\Greenfoot\lib\javafx\javafx.controls.jar;D:\coding\Greenfoot\lib\javafx\javafx.fxml.jar;D:\coding\Greenfoot\lib\javafx\javafx.graphics.jar;D:\coding\Greenfoot\lib\javafx\javafx.media.jar;D:\coding\Greenfoot\lib\javafx\javafx.properties.jar;D:\coding\Greenfoot\lib\javafx\javafx.swing.jar;D:\coding\Greenfoot\lib\javafx\javafx.web.jar;D:\coding\github school\final-greenfoot-project-LucAsl14
+-d
+D:\coding\github school\final-greenfoot-project-LucAsl14\doc
+-encoding
+windows-1252
+-charset
+windows-1252
+D:\coding\github school\final-greenfoot-project-LucAsl14\Counter.java
+<---- end of javadoc command ---->
+Loading source file D:\coding\github school\final-greenfoot-project-LucAsl14\Counter.java...
+Constructing Javadoc information...
+warning: unknown enum constant Tag.Any
+  reason: class file for threadchecker.Tag not found
+warning: unknown enum constant Tag.Any
+Standard Doclet version 17.0.4.1+1
+Building tree for all the packages and classes...
+Generating D:\coding\github school\final-greenfoot-project-LucAsl14\doc\Counter.html...
+Generating D:\coding\github school\final-greenfoot-project-LucAsl14\doc\package-summary.html...
+Generating D:\coding\github school\final-greenfoot-project-LucAsl14\doc\index.html...
+2 warnings
