@@ -1,6 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-
+/**
+ * This class handles the title screen, where the user will get to
+ * choose the gamemode and read the rules.
+ */
 public class TitleScreen extends World
 {
 
