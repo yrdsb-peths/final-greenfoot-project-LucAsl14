@@ -6,6 +6,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Tank extends SmoothMover
 {
     String color;
+    boolean hasShot = false;
+    int bulletsShot = 0, maxBullets = 5;
     int moveSpeed = 4, turnSpeed = 3;
     /** creates a tank with color "color" */
     public Tank(String color){
@@ -15,20 +17,31 @@ public class Tank extends SmoothMover
     }
     
     public void act(){
-        checkMove();
-        checkShoot();
+        checkKeys();
     }
-    /** checks whether keys for movement have been pressed for either tank */
-    private void checkMove(){
+    /** checks whether keys have been pressed for either tank */
+    private void checkKeys(){
+        Game world = (Game)getWorld();
         if(color=="red"){
-            if(Greenfoot.isKeyDown("w"))
+            if(Greenfoot.isKeyDown("w")){
                 move(moveSpeed);
-            if(Greenfoot.isKeyDown("a"))
+                if(
+            }
+            if(Greenfoot.isKeyDown("a")){
                 turn(-turnSpeed);
-            if(Greenfoot.isKeyDown("s"))
+            }
+            if(Greenfoot.isKeyDown("s")){
                 move(-moveSpeed);
-            if(Greenfoot.isKeyDown("d"))
+            }
+            if(Greenfoot.isKeyDown("d")){
                 turn(turnSpeed);
+            }
+            if(Greenfoot.isKeyDown("q")&&!hasShot&&!checkExceed()){
+                world.addObject(new Bullet(this, getRotation()), getX(), getY());
+                hasShot = true;
+            } else {
+                hasShot = false;
+            }
         }
         if(color=="green"){
             if(Greenfoot.isKeyDown("up"))
@@ -38,11 +51,16 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("down"))
                 move(-moveSpeed);
             if(Greenfoot.isKeyDown("right"))
-                turn(turnSpeed);            
+                turn(turnSpeed); 
+            if(Greenfoot.isKeyDown("m")&&!hasShot&&!checkExceed()){
+                world.addObject(new Bullet(this, getRotation()), getX(), getY());
+                hasShot = true;
+            } else {
+                hasShot = false;
+            }
         }
     }
-    
-    private void checkShoot(){
-        
+    public boolean checkExceed(){
+        return bulletsShot >= maxBullets;
     }
 }

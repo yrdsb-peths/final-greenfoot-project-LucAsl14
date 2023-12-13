@@ -3,7 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * The first maze
  */
-public class Maze1 extends World
+public class Maze1 extends Game
 {
     int cx, cy;
     public Maze1(String gameType)

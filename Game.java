@@ -8,7 +8,9 @@ public class Game extends World
         super(1200, 600, 1);
         this.gameType = gameType;
     }
-    
+    public Game(int width, int height, int cellSize){
+        super(width, height, cellSize);
+    }
     public void act(){
         Greenfoot.setWorld(new Maze1(gameType));
     }
