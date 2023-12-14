@@ -6,10 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Bullet extends SmoothMover
 {
     Tank owner;
-    int velocity = 4;
+    int velocity = 10;
     double vx, vy;
     int lifeSpan = 1000;
-    boolean hasLeftOwner = false;
     /**
      * Creates a new bullet with an owner and a direction
      */
@@ -20,6 +19,7 @@ public class Bullet extends SmoothMover
         getImage().scale(10, 10);
     }
     protected void addedToWorld(World world){
+        // makes the bullet leave the barrel of the gun instead of exploding inside
         while(intersects(owner)){
             move();
         }
@@ -34,9 +34,9 @@ public class Bullet extends SmoothMover
             return;
         }
         
-        // moving
         move();
         checkBounce();
+        checkKill();
     }
     
     public void move(){
@@ -44,11 +44,23 @@ public class Bullet extends SmoothMover
     }
     
     public void checkBounce(){
-        
-        // wall bounces
+        // world wall bounces
         if(getY()<=0||getY()>=getWorld().getHeight()-1)
             vy*=-1;
         if(getX()<=0||getX()>=getWorld().getWidth()-1)
             vx*=-1;
+            
+            
+    }
+    
+    public void checkKill(){
+        if(isTouching(Tank.class)){
+            Actor dying = getOneIntersectingObject(Tank.class);
+            Tank dyingTank;
+            if(dying instanceof Tank){
+                dyingTank = (Tank) dying;
+                dyingTank.gameOver();
+            }
+        }
     }
 }

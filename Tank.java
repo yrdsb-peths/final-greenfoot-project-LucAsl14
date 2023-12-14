@@ -25,7 +25,7 @@ public class Tank extends SmoothMover
         if(color=="red"){
             if(Greenfoot.isKeyDown("w")){
                 move(moveSpeed);
-                if(isTouching(null)){
+                if(isTouching(null)||isAtEdge()){
                     move(-moveSpeed);
                 }
             }
@@ -37,7 +37,7 @@ public class Tank extends SmoothMover
             }
             if(Greenfoot.isKeyDown("s")){
                 move(-moveSpeed);
-                if(isTouching(null)){
+                if(isTouching(null)||isAtEdge()){
                     move(moveSpeed);
                 }
             }
@@ -62,7 +62,7 @@ public class Tank extends SmoothMover
         if(color=="green"){
             if(Greenfoot.isKeyDown("up")){
                 move(moveSpeed);
-                if(isTouching(null)){
+                if(isTouching(null)||isAtEdge()){
                     move(-moveSpeed);
                 }
             }
@@ -74,7 +74,7 @@ public class Tank extends SmoothMover
             }
             if(Greenfoot.isKeyDown("down")){
                 move(-moveSpeed);
-                if(isTouching(null)){
+                if(isTouching(null)||isAtEdge()){
                     move(moveSpeed);
                 }
             }
@@ -99,5 +99,9 @@ public class Tank extends SmoothMover
     }
     public boolean checkExceed(){
         return bulletsShot >= maxBullets;
+    }
+    public void gameOver(){
+        getWorld().addObject(new Explosion(), getX(), getY());
+        getWorld().removeObject(this);
     }
 }
