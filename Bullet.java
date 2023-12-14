@@ -19,13 +19,36 @@ public class Bullet extends SmoothMover
         vy = velocity*Math.sin(Math.toRadians(dir));
         getImage().scale(10, 10);
     }
+    protected void addedToWorld(World world){
+        while(intersects(owner)){
+            move();
+        }
+    }
     public void act()
     {
         Game world = (Game) getWorld();
+        // when bullet runs out of lifespan
         if(lifeSpan--==0){
             world.removeObject(this);
+            owner.bulletsShot--;
             return;
         }
+        
+        // moving
+        move();
+        checkBounce();
+    }
+    
+    public void move(){
         setLocation(getX()+vx, getY()+vy);
+    }
+    
+    public void checkBounce(){
+        
+        // wall bounces
+        if(getY()<=0||getY()>=getWorld().getHeight()-1)
+            vy*=-1;
+        if(getX()<=0||getX()>=getWorld().getWidth()-1)
+            vx*=-1;
     }
 }
