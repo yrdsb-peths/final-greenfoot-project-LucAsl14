@@ -20,7 +20,8 @@ public class Button extends Label
         if(Greenfoot.mouseClicked(this)){
             setFillColor(Color.WHITE);
             if(command == "singleplayer" || command == "multiplayer"){
-                Greenfoot.setWorld(new Game(command));
+                Greenfoot.setWorld(new Maze1(command));
+                //important; supposed to be game
             }
             if(command == "rules"){
                 Greenfoot.setWorld(new Rules());

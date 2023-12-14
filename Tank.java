@@ -25,36 +25,73 @@ public class Tank extends SmoothMover
         if(color=="red"){
             if(Greenfoot.isKeyDown("w")){
                 move(moveSpeed);
-                if(
+                if(isTouching(null)){
+                    move(-moveSpeed);
+                }
             }
             if(Greenfoot.isKeyDown("a")){
                 turn(-turnSpeed);
+                if(isTouching(null)){
+                    turn(moveSpeed);
+                }
             }
             if(Greenfoot.isKeyDown("s")){
                 move(-moveSpeed);
+                if(isTouching(null)){
+                    move(moveSpeed);
+                }
             }
             if(Greenfoot.isKeyDown("d")){
                 turn(turnSpeed);
+                if(isTouching(null)){
+                    turn(-moveSpeed);
+                }
             }
-            if(Greenfoot.isKeyDown("q")&&!hasShot&&!checkExceed()){
-                world.addObject(new Bullet(this, getRotation()), getX(), getY());
-                hasShot = true;
+            
+            // the shooting
+            if(Greenfoot.isKeyDown("q")){
+                if(!hasShot&&!checkExceed()){
+                    world.addObject(new Bullet(this, getRotation()), getX(), getY());
+                    hasShot = true;
+                    bulletsShot++;
+                }
             } else {
                 hasShot = false;
             }
         }
         if(color=="green"){
-            if(Greenfoot.isKeyDown("up"))
+            if(Greenfoot.isKeyDown("up")){
                 move(moveSpeed);
-            if(Greenfoot.isKeyDown("left"))
+                if(isTouching(null)){
+                    move(-moveSpeed);
+                }
+            }
+            if(Greenfoot.isKeyDown("left")){
                 turn(-turnSpeed);
-            if(Greenfoot.isKeyDown("down"))
+                if(isTouching(null)){
+                    turn(moveSpeed);
+                }
+            }
+            if(Greenfoot.isKeyDown("down")){
                 move(-moveSpeed);
-            if(Greenfoot.isKeyDown("right"))
-                turn(turnSpeed); 
-            if(Greenfoot.isKeyDown("m")&&!hasShot&&!checkExceed()){
-                world.addObject(new Bullet(this, getRotation()), getX(), getY());
-                hasShot = true;
+                if(isTouching(null)){
+                    move(moveSpeed);
+                }
+            }
+            if(Greenfoot.isKeyDown("right")){
+                turn(turnSpeed);
+                if(isTouching(null)){
+                    turn(-moveSpeed);
+                }
+            }
+            
+            // the shooting
+            if(Greenfoot.isKeyDown("m")){
+                if(!hasShot&&!checkExceed()){
+                    world.addObject(new Bullet(this, getRotation()), getX(), getY());
+                    hasShot = true;
+                    bulletsShot++;
+                }
             } else {
                 hasShot = false;
             }

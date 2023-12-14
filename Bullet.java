@@ -6,18 +6,26 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Bullet extends SmoothMover
 {
     Tank owner;
-    double direction;
     int velocity = 4;
+    double vx, vy;
+    int lifeSpan = 1000;
     boolean hasLeftOwner = false;
     /**
      * Creates a new bullet with an owner and a direction
      */
     public Bullet(Tank own, double dir){
         owner = own;
-        direction = dir;
+        vx = velocity*Math.cos(Math.toRadians(dir));
+        vy = velocity*Math.sin(Math.toRadians(dir));
+        getImage().scale(10, 10);
     }
     public void act()
     {
-        // Add your action code here.
+        Game world = (Game) getWorld();
+        if(lifeSpan--==0){
+            world.removeObject(this);
+            return;
+        }
+        setLocation(getX()+vx, getY()+vy);
     }
 }
