@@ -11,7 +11,7 @@ public class Explosion extends Actor
     GreenfootImage[] sprites = new GreenfootImage[16];
     public Explosion(){
         for(int i=0; i<16; i++){
-            sprites[i] = new GreenfootImage("explosion"+i+".png");
+            sprites[i] = new GreenfootImage("explosion/explosion"+i+".png");
         }
         setImage(sprites[0]);
     }
@@ -29,6 +29,7 @@ public class Explosion extends Actor
                 return;
             }
             setImage(sprites[aniFrames]);
+            System.out.println(aniFrames);
         }
     }
 }

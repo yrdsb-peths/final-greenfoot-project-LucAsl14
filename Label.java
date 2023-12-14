@@ -38,6 +38,12 @@ public class Label extends Actor
         this.fontSize = fontSize;
         updateImage();
     }
+    
+    public Label(GreenfootImage image){
+        this.value = "";
+        this.fontSize = 0;
+        setImage(image);
+    }
 
     /**
      * Sets the value  as text

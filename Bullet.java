@@ -36,7 +36,7 @@ public class Bullet extends SmoothMover
         
         move();
         checkBounce();
-        checkKill();
+        if(checkKill()) return;
     }
     
     public void move(){
@@ -53,14 +53,17 @@ public class Bullet extends SmoothMover
             
     }
     
-    public void checkKill(){
+    public boolean checkKill(){
         if(isTouching(Tank.class)){
             Actor dying = getOneIntersectingObject(Tank.class);
             Tank dyingTank;
             if(dying instanceof Tank){
                 dyingTank = (Tank) dying;
                 dyingTank.gameOver();
+                getWorld().removeObject(this);
+                return true;
             }
         }
+        return false;
     }
 }
