@@ -34,7 +34,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("a")){
                 turn(-turnSpeed);
                 if(isTouching(null)){
-                    turn(moveSpeed-1);
+                    turn(moveSpeed-2);
                 }
             }
             if(Greenfoot.isKeyDown("s")){
@@ -46,7 +46,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("d")){
                 turn(turnSpeed);
                 if(isTouching(null)){
-                    turn(-moveSpeed+1);
+                    turn(-moveSpeed+2);
                 }
             }
             
@@ -71,7 +71,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("left")){
                 turn(-turnSpeed);
                 if(isTouching(null)){
-                    turn(moveSpeed-1);
+                    turn(moveSpeed-2);
                 }
             }
             if(Greenfoot.isKeyDown("down")){
@@ -83,7 +83,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("right")){
                 turn(turnSpeed);
                 if(isTouching(null)){
-                    turn(-moveSpeed+1);
+                    turn(-moveSpeed+2);
                 }
             }
             

@@ -24,8 +24,8 @@ public class Maze1 extends Game
         red = new Tank("red");
         green = new Tank("green");
     
-        addObject(red, cx-300, cy);
-        addObject(green, cx+300, cy);
+        addObject(red, cx-450, 37);
+        addObject(green, cx+450, getHeight()-37);
         green.turn(180);   
     }
     
