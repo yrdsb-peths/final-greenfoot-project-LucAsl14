@@ -12,7 +12,10 @@ public class HorizontalWall extends Wall
         this(75);
     }
     public HorizontalWall(int x){
-        type = "horizontal";
         getImage().scale(x, 5);        
+    }
+    public void addedToWorld(World world){
+        if(isTouching(Tank.class))
+            world.removeObject(this);
     }
 }

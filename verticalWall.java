@@ -12,7 +12,6 @@ public class VerticalWall extends Wall
         this(75);
     }
     public VerticalWall(int y){
-        type = "vertical";
         getImage().scale(5, y);
     }
 }

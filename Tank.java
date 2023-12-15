@@ -8,7 +8,7 @@ public class Tank extends SmoothMover
     String color;
     boolean destroyed = false;
     boolean hasShot = false;
-    int bulletsShot = 0, maxBullets = 5;
+    int bulletsShot = 0, maxBullets = 10;
     int moveSpeed = 4, turnSpeed = 3;
     /** creates a tank with color "color" */
     public Tank(String color){
@@ -34,7 +34,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("a")){
                 turn(-turnSpeed);
                 if(isTouching(null)){
-                    turn(moveSpeed);
+                    turn(moveSpeed-1);
                 }
             }
             if(Greenfoot.isKeyDown("s")){
@@ -46,7 +46,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("d")){
                 turn(turnSpeed);
                 if(isTouching(null)){
-                    turn(-moveSpeed);
+                    turn(-moveSpeed+1);
                 }
             }
             
@@ -71,7 +71,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("left")){
                 turn(-turnSpeed);
                 if(isTouching(null)){
-                    turn(moveSpeed);
+                    turn(moveSpeed-1);
                 }
             }
             if(Greenfoot.isKeyDown("down")){
@@ -83,7 +83,7 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("right")){
                 turn(turnSpeed);
                 if(isTouching(null)){
-                    turn(-moveSpeed);
+                    turn(-moveSpeed+1);
                 }
             }
             

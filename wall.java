@@ -8,5 +8,5 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public abstract class Wall extends Actor
 {
-    public static String type;
+
 }
