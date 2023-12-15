@@ -15,6 +15,7 @@ public class Maze1 extends Game
             makeObjects2();
         }
         makeLimits();
+        makeScores();
     }
     
     private void makeObjects2(){

@@ -103,8 +103,17 @@ public class Tank extends SmoothMover
         return bulletsShot >= maxBullets;
     }
     public void gameOver(){
-        getWorld().addObject(new Explosion(), getX(), getY());
+        Game world = (Game) getWorld();
+        world.addObject(new Explosion(), getX(), getY());
         destroyed = true;
+        if(color == "red"){
+            world.redDied = true;
+            world.startCounting();
+        }
+        if(color == "green"){
+            world.greenDied = true;
+            world.startCounting();
+        }
         getWorld().removeObject(this);
     }
 }
