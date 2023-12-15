@@ -6,9 +6,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class horizontalWall extends wall
+public class HorizontalWall extends Wall
 {
-    public horizontalWall(){
-        getImage().scale(75, 5);
+    public HorizontalWall(){
+        this(75);
+    }
+    public HorizontalWall(int x){
+        type = "horizontal";
+        getImage().scale(x, 5);        
     }
 }

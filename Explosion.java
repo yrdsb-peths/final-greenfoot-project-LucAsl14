@@ -29,7 +29,6 @@ public class Explosion extends Actor
                 return;
             }
             setImage(sprites[aniFrames]);
-            System.out.println(aniFrames);
         }
     }
 }

@@ -6,6 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Tank extends SmoothMover
 {
     String color;
+    boolean destroyed = false;
     boolean hasShot = false;
     int bulletsShot = 0, maxBullets = 5;
     int moveSpeed = 4, turnSpeed = 3;
@@ -17,6 +18,7 @@ public class Tank extends SmoothMover
     }
     
     public void act(){
+        if(destroyed) return;
         checkKeys();
     }
     /** checks whether keys have been pressed for either tank */
@@ -102,6 +104,7 @@ public class Tank extends SmoothMover
     }
     public void gameOver(){
         getWorld().addObject(new Explosion(), getX(), getY());
+        destroyed = true;
         getWorld().removeObject(this);
     }
 }
