@@ -7,7 +7,8 @@ public class Game extends World
     boolean counting = false, ended = false;;
     SimpleTimer timer = new SimpleTimer();
     int cx, cy;
-    static Counter redScoreCounter, greenScoreCounter;
+    static Counter redScoreCounter = new Counter();
+    static Counter greenScoreCounter = new Counter();
     public Game(String gameType){    
         super(1200, 600, 1);
         cx = getWidth()/2; cy = getHeight()/2;
@@ -18,7 +19,7 @@ public class Game extends World
             endGame();
         }
         if(ended&&timer.millisElapsed()>1000){
-            // Greenfoot.setWorld(new Game("multiplayer"));
+            newGame();
         }
     }
     public void newGame(){
@@ -31,8 +32,6 @@ public class Game extends World
     protected void makeScores(){
         Label redTankSprite = new Label(new GreenfootImage("redTank_base.png"));
         Label greenTankSprite = new Label(new GreenfootImage("greenTank_base.png"));
-        redScoreCounter = new Counter();
-        greenScoreCounter = new Counter();
         
         addObject(redTankSprite, 50, cy-100);
         addObject(greenTankSprite, getWidth()-50, cy-100);
