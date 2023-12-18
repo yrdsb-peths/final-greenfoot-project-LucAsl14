@@ -24,22 +24,28 @@ public class Maze1 extends Game
         red = new Tank("red");
         green = new Tank("green");
     
-        addObject(red, cx-450, 37);
-        addObject(green, cx+450, getHeight()-37);
+        addObject(red, cx-450+37, 75);
+        addObject(green, cx+450-37, getHeight()-75);
         green.turn(180);   
     }
     
     private void makeMaze(){
         Random rand = new Random();
-        for(int i=0; i<30; i++){
+        for(int i=0; i<35; i++){
             int x = rand.nextInt(13)*75+112+38;
             int y = (rand.nextInt(7)+1)*75;
-            addObject(new HorizontalWall(), x, y);
+            addObject(new TopHorizontalWall(), x, y-2);
+            addObject(new BottomHorizontalWall(), x, y+2);
+            addObject(new LeftVerticalWall(3), x-37, y);
+            addObject(new RightVerticalWall(3), x+37, y);
         }
-        for(int i=0; i<30; i++){
+        for(int i=0; i<35; i++){
             int x = (rand.nextInt(12)+1)*75+112;
             int y = rand.nextInt(8)*75+37;
-            addObject(new VerticalWall(), x, y);
+            addObject(new LeftVerticalWall(), x-2, y);
+            addObject(new RightVerticalWall(), x+2, y);
+            addObject(new TopHorizontalWall(3), x, y-37);
+            addObject(new BottomHorizontalWall(3), x, y+37);
         }
     }
 }

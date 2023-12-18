@@ -15,7 +15,7 @@ public class Game extends World
         this.gameType = gameType;
     }
     public void act(){
-        if(counting&&timer.millisElapsed()>4000){
+        if(counting&&timer.millisElapsed()>3000){
             endGame();
         }
         if(ended&&timer.millisElapsed()>1000){
@@ -26,8 +26,8 @@ public class Game extends World
         Greenfoot.setWorld(new Maze1(gameType));
     }
     protected void makeLimits(){
-        addObject(new VerticalWall(getHeight()), cx-500+12, cy);
-        addObject(new VerticalWall(getHeight()), cx+500-12, cy);
+        addObject(new RightVerticalWall(getHeight()), cx-500+12, cy);
+        addObject(new LeftVerticalWall(getHeight()), cx+500-12, cy);
     }
     protected void makeScores(){
         Label redTankSprite = new Label(new GreenfootImage("redTank_base.png"));
@@ -61,7 +61,7 @@ public class Game extends World
             timer.mark();
         }
     }
-    public void resetScores(){
+    public static void resetScores(){
         redScoreCounter.setValue(0);
         greenScoreCounter.setValue(0);
     }

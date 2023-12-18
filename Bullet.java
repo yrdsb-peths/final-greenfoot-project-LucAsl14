@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Bullet extends SmoothMover
 {
     Tank owner;
-    int velocity = 5;
+    int velocity = 4;
     double vx, vy;
     int lifeSpan = 1000;
     /**
@@ -22,6 +22,11 @@ public class Bullet extends SmoothMover
         // makes the bullet leave the barrel of the gun instead of exploding inside
         while(intersects(owner)&&!isTouching(Wall.class)){
             move();
+            if(isAtEdge()){
+                world.removeObject(this);
+                owner.bulletsShot--;
+                return;
+            }
         }
     }
     public void act()
@@ -51,10 +56,19 @@ public class Bullet extends SmoothMover
             vx*=-1;
         if(isTouching(Wall.class)){
             Wall wall = (Wall) getOneIntersectingObject(Wall.class);
-            if(wall instanceof VerticalWall)
-                vx*=-1; move();
-            if(wall instanceof HorizontalWall)
-                vy*=-1; move();
+            if(wall instanceof LeftVerticalWall){
+               vx=-Math.abs(vx);
+            }
+            if(wall instanceof RightVerticalWall){
+                vx=Math.abs(vx);
+            }
+            if(wall instanceof TopHorizontalWall){
+                vy=-Math.abs(vy);
+            }
+                
+            if(wall instanceof BottomHorizontalWall){
+                vy=Math.abs(vy); 
+            }
         }
             
     }

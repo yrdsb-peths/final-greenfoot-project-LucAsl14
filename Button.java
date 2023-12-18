@@ -21,6 +21,7 @@ public class Button extends Label
             setFillColor(Color.WHITE);
             if(command == "singleplayer" || command == "multiplayer"){
                 Game g = new Game(command);
+                Game.resetScores();
                 g.newGame();
                 //important; supposed to be game
             }
