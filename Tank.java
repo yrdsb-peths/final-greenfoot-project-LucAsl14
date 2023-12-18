@@ -28,26 +28,20 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("w")){
                 move(moveSpeed);
                 if(isTouching(null)||isAtEdge()){
-                    move(-moveSpeed);
+                    move(-moveSpeed+1);
                 }
             }
             if(Greenfoot.isKeyDown("a")){
                 turn(-turnSpeed);
-                if(isTouching(null)){
-                    turn(moveSpeed/2);
-                }
             }
             if(Greenfoot.isKeyDown("s")){
                 move(-moveSpeed);
                 if(isTouching(null)||isAtEdge()){
-                    move(moveSpeed);
+                    move(moveSpeed-1);
                 }
             }
             if(Greenfoot.isKeyDown("d")){
                 turn(turnSpeed);
-                if(isTouching(null)){
-                    turn(-moveSpeed/2);
-                }
             }
             
             // the shooting
@@ -65,26 +59,20 @@ public class Tank extends SmoothMover
             if(Greenfoot.isKeyDown("up")){
                 move(moveSpeed);
                 if(isTouching(null)||isAtEdge()){
-                    move(-moveSpeed);
+                    move(-moveSpeed+1);
                 }
             }
             if(Greenfoot.isKeyDown("left")){
                 turn(-turnSpeed);
-                if(isTouching(null)){
-                    turn(moveSpeed/2);
-                }
             }
             if(Greenfoot.isKeyDown("down")){
                 move(-moveSpeed);
                 if(isTouching(null)||isAtEdge()){
-                    move(moveSpeed);
+                    move(moveSpeed-1);
                 }
             }
             if(Greenfoot.isKeyDown("right")){
                 turn(turnSpeed);
-                if(isTouching(null)){
-                    turn(-moveSpeed/2);
-                }
             }
             
             // the shooting
@@ -97,6 +85,19 @@ public class Tank extends SmoothMover
             } else {
                 hasShot = false;
             }
+        }
+        
+        if(isTouching(RightVerticalWall.class)){
+            setLocation(getX()+moveSpeed, getY());
+        }
+        if(isTouching(LeftVerticalWall.class)){
+            setLocation(getX()-moveSpeed, getY());
+        }
+        if(isTouching(TopHorizontalWall.class)){
+            setLocation(getX(), getY()-moveSpeed);
+        }
+        if(isTouching(BottomHorizontalWall.class)){
+            setLocation(getX(), getY()+moveSpeed);
         }
     }
     public boolean checkExceed(){

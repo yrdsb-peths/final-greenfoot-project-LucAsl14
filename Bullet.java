@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Bullet extends SmoothMover
 {
     Tank owner;
-    int velocity = 4;
+    double velocity = 4;
     double vx, vy;
     int lifeSpan = 1000;
     /**
@@ -57,7 +57,7 @@ public class Bullet extends SmoothMover
         if(isTouching(Wall.class)){
             Wall wall = (Wall) getOneIntersectingObject(Wall.class);
             if(wall instanceof LeftVerticalWall){
-               vx=-Math.abs(vx);
+                vx=-Math.abs(vx);
             }
             if(wall instanceof RightVerticalWall){
                 vx=Math.abs(vx);
@@ -65,7 +65,6 @@ public class Bullet extends SmoothMover
             if(wall instanceof TopHorizontalWall){
                 vy=-Math.abs(vy);
             }
-                
             if(wall instanceof BottomHorizontalWall){
                 vy=Math.abs(vy); 
             }
