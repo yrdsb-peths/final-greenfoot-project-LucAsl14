@@ -10,7 +10,7 @@ public class Tank extends SmoothMover
     boolean destroyed = false;
     boolean hasShot = false;
     boolean startedGatling = false;
-    boolean uncontrollable = false;
+    public boolean uncontrollable = false;
     int bulletsShot = 0; 
     final int maxBullets = 10;
     final int moveSpeed = 3, turnSpeed = 3;
@@ -112,6 +112,11 @@ public class Tank extends SmoothMover
                         hasShot = true;
                     }
                 }
+                if(currentPowerup=="remote"){
+                    uncontrollable = true;
+                    world.addObject(new ControlledBullet(this), getX(), getY());
+                    hasShot = true;
+                }
             } else {
                 hasShot = false;
                 timer.mark();
@@ -139,6 +144,11 @@ public class Tank extends SmoothMover
                         hasShot = true;
                     }
                 }
+                if(currentPowerup=="remote"){
+                    uncontrollable = true;
+                    world.addObject(new ControlledBullet(this), getX(), getY());
+                    hasShot = true;
+                }
             } else {
                 hasShot = false;
                 timer.mark();
@@ -161,5 +171,12 @@ public class Tank extends SmoothMover
             world.startCounting();
         }
         getWorld().removeObject(this);
+    }
+    public String getColor(){
+        return color;
+    }
+    public void remoteExpire(){
+        uncontrollable = false;
+        currentPowerup = "none";
     }
 }

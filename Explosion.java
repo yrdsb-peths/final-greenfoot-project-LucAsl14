@@ -15,6 +15,13 @@ public class Explosion extends Actor
         }
         setImage(sprites[0]);
     }
+    public Explosion(int imageSize){
+        for(int i=0; i<16; i++){
+            sprites[i] = new GreenfootImage("explosion/explosion"+i+".png");
+            sprites[i].scale(imageSize, imageSize);
+        }
+        setImage(sprites[0]);
+    }
     
     int aniFrames = 0;
     int timeElapsed = 0;

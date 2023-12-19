@@ -8,6 +8,7 @@ public class Bullet extends SmoothMover
     Tank owner;
     final double velocity = 4;
     double vx, vy;
+    boolean isSmall = false;
     int lifeSpan = 800;
     /**
      * Creates a new bullet with an owner and a direction
@@ -16,12 +17,16 @@ public class Bullet extends SmoothMover
         owner = own;
         vx = velocity*Math.cos(Math.toRadians(dir));
         vy = velocity*Math.sin(Math.toRadians(dir));
+        setRotation((int)dir);
         getImage().scale(10, 10);
     }
     public Bullet(Tank own, double dir, boolean isSmall){
         this(own, dir);
-        getImage().scale(5, 5);
-        lifeSpan /= 4;
+        if(isSmall){
+            getImage().scale(5, 5);
+            lifeSpan /= 4;  
+            isSmall = true;
+        }
     }
     protected void addedToWorld(World world){
         // makes the bullet leave the barrel of the gun instead of exploding inside
@@ -29,7 +34,7 @@ public class Bullet extends SmoothMover
             move();
             if(isAtEdge()){
                 world.removeObject(this);
-                owner.bulletsShot--;
+                if(!isSmall) owner.bulletsShot--;
                 return;
             }
         }
@@ -40,13 +45,13 @@ public class Bullet extends SmoothMover
         // when bullet runs out of lifespan
         if(lifeSpan--==0){
             world.removeObject(this);
-            owner.bulletsShot--;
+            if(!isSmall) owner.bulletsShot--;
             return;
         }
         
         move();
         checkBounce();
-        if(checkKill()) return;
+        checkKill();
     }
     
     public void move(){
@@ -77,17 +82,15 @@ public class Bullet extends SmoothMover
             
     }
     
-    public boolean checkKill(){
+    public void checkKill(){
         if(isTouching(Tank.class)){
             Actor dying = getOneIntersectingObject(Tank.class);
             Tank dyingTank;
             if(dying instanceof Tank){
                 dyingTank = (Tank) dying;
                 dyingTank.gameOver();
-                getWorld().removeObject(this);
-                return true;
+                lifeSpan = 0;
             }
         }
-        return false;
     }
 }
