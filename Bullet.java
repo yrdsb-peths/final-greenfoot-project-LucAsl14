@@ -6,9 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Bullet extends SmoothMover
 {
     Tank owner;
-    double velocity = 4;
+    final double velocity = 4;
     double vx, vy;
-    int lifeSpan = 1000;
+    int lifeSpan = 800;
     /**
      * Creates a new bullet with an owner and a direction
      */
@@ -17,6 +17,11 @@ public class Bullet extends SmoothMover
         vx = velocity*Math.cos(Math.toRadians(dir));
         vy = velocity*Math.sin(Math.toRadians(dir));
         getImage().scale(10, 10);
+    }
+    public Bullet(Tank own, double dir, boolean isSmall){
+        this(own, dir);
+        getImage().scale(5, 5);
+        lifeSpan /= 4;
     }
     protected void addedToWorld(World world){
         // makes the bullet leave the barrel of the gun instead of exploding inside
@@ -45,7 +50,7 @@ public class Bullet extends SmoothMover
     }
     
     public void move(){
-        setLocation(getX()+vx, getY()+vy);
+        setLocation(getExactX()+vx, getExactY()+vy);
     }
     
     public void checkBounce(){
