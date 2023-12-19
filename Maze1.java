@@ -14,10 +14,13 @@ public class Maze1 extends Game
         cx = getWidth()/2; cy = getHeight()/2;
         if(gameType=="multiplayer"){
             makeObjects2();
+            makeLimits();
+            makeScores();
+            makeMaze();
+        } else {
+            Label pity = new Label("1 player version not yet implemented; go get a friend :)", 50);
+            addObject(pity, cx, cy);
         }
-        makeLimits();
-        makeScores();
-        makeMaze();
     }
     
     private void makeObjects2(){
@@ -31,7 +34,7 @@ public class Maze1 extends Game
     
     private void makeMaze(){
         Random rand = new Random();
-        for(int i=0; i<35; i++){
+        for(int i=0; i<32; i++){
             int x = rand.nextInt(13)*75+112+38;
             int y = (rand.nextInt(7)+1)*75;
             addObject(new TopHorizontalWall(), x, y-2);
@@ -39,7 +42,7 @@ public class Maze1 extends Game
             addObject(new LeftVerticalWall(3), x-37, y);
             addObject(new RightVerticalWall(3), x+37, y);
         }
-        for(int i=0; i<35; i++){
+        for(int i=0; i<32; i++){
             int x = (rand.nextInt(12)+1)*75+112;
             int y = rand.nextInt(8)*75+37;
             addObject(new LeftVerticalWall(), x-2, y);

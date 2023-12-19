@@ -10,6 +10,7 @@ public class Tank extends SmoothMover
     boolean destroyed = false;
     boolean hasShot = false;
     boolean startedGatling = false;
+    boolean uncontrollable = false;
     int bulletsShot = 0; 
     final int maxBullets = 10;
     final int moveSpeed = 3, turnSpeed = 3;
@@ -33,42 +34,42 @@ public class Tank extends SmoothMover
     private void checkMoves(){
         Game world = (Game)getWorld();
         if(color=="red"){
-            if(Greenfoot.isKeyDown("w")){
+            if(Greenfoot.isKeyDown("w")&&!uncontrollable){
                 move(moveSpeed);
                 if(isTouching(Wall.class)){
                     move(-moveSpeed+1);
                 }
             }
-            if(Greenfoot.isKeyDown("a")){
+            if(Greenfoot.isKeyDown("a")&&!uncontrollable){
                 turn(-turnSpeed);
             }
-            if(Greenfoot.isKeyDown("s")){
+            if(Greenfoot.isKeyDown("s")&&!uncontrollable){
                 move(-moveSpeed);
                 if(isTouching(Wall.class)){
                     move(moveSpeed-1);
                 }
             }
-            if(Greenfoot.isKeyDown("d")){
+            if(Greenfoot.isKeyDown("d")&&!uncontrollable){
                 turn(turnSpeed);
             }
         }
         if(color=="green"){
-            if(Greenfoot.isKeyDown("up")){
+            if(Greenfoot.isKeyDown("up")&&!uncontrollable){
                 move(moveSpeed);
                 if(isTouching(Wall.class)){
                     move(-moveSpeed+1);
                 }
             }
-            if(Greenfoot.isKeyDown("left")){
+            if(Greenfoot.isKeyDown("left")&&!uncontrollable){
                 turn(-turnSpeed);
             }
-            if(Greenfoot.isKeyDown("down")){
+            if(Greenfoot.isKeyDown("down")&&!uncontrollable){
                 move(-moveSpeed);
                 if(isTouching(Wall.class)){
                     move(moveSpeed-1);
                 }
             }
-            if(Greenfoot.isKeyDown("right")){
+            if(Greenfoot.isKeyDown("right")&&!uncontrollable){
                 turn(turnSpeed);
             }   
         }
@@ -94,7 +95,7 @@ public class Tank extends SmoothMover
     public void checkShots(){
         Game world = (Game) getWorld();
         if(color == "red"){
-            if(Greenfoot.isKeyDown("q")){
+            if(Greenfoot.isKeyDown("q")&&!uncontrollable){
                 if(currentPowerup=="none"&&!hasShot&&!checkExceed()){
                     world.addObject(new Bullet(this, getRotation()), getX(), getY());
                     hasShot = true;
@@ -121,7 +122,7 @@ public class Tank extends SmoothMover
             }
         }
         if(color == "green"){
-            if(Greenfoot.isKeyDown("m")&&color=="green"){
+            if(Greenfoot.isKeyDown("m")&&!uncontrollable){
                 if(currentPowerup=="none"&&!hasShot&&!checkExceed()){
                     world.addObject(new Bullet(this, getRotation()), getX(), getY());
                     hasShot = true;
