@@ -30,7 +30,7 @@ public class Bullet extends SmoothMover
     }
     protected void addedToWorld(World world){
         // makes the bullet leave the barrel of the gun instead of exploding inside
-        while(intersects(owner)&&!isTouching(Wall.class)){
+        while(owner!=null&&intersects(owner)&&!isTouching(Wall.class)){
             move();
             if(isAtEdge()){
                 world.removeObject(this);
@@ -45,13 +45,13 @@ public class Bullet extends SmoothMover
         // when bullet runs out of lifespan
         if(lifeSpan--==0){
             world.removeObject(this);
-            if(!isSmall) owner.bulletsShot--;
+            if(owner!=null&&!isSmall) owner.bulletsShot--;
             return;
         }
         
         move();
-        checkBounce();
         checkKill();
+        checkBounce();
     }
     
     public void move(){

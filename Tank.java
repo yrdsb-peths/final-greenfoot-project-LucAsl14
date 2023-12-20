@@ -6,14 +6,15 @@ import java.util.Random;
 public class Tank extends SmoothMover
 {
     String color;
-    String currentPowerup = "none";
+    String currentPowerup = "bomb";
     boolean destroyed = false;
     boolean hasShot = false;
     boolean startedGatling = false;
-    public boolean uncontrollable = false;
+    boolean uncontrollable = false;
+    boolean bombShot = false;
     int bulletsShot = 0; 
-    final int maxBullets = 10;
-    final int moveSpeed = 3, turnSpeed = 3;
+    final int maxBullets = 5;
+    final int moveSpeed = 3, turnSpeed = 4;
     final int gatlingSpread = 20;
     SimpleTimer timer = new SimpleTimer();
     Random rand = new Random();
@@ -95,13 +96,13 @@ public class Tank extends SmoothMover
     public void checkShots(){
         Game world = (Game) getWorld();
         if(color == "red"){
-            if(Greenfoot.isKeyDown("q")&&!uncontrollable){
+            if(Greenfoot.isKeyDown("q")&&!uncontrollable&&!bombShot){
                 if(currentPowerup=="none"&&!hasShot&&!checkExceed()){
                     world.addObject(new Bullet(this, getRotation()), getX(), getY());
                     hasShot = true;
                     bulletsShot++;
                 }
-                if(currentPowerup=="gatling"){
+                else if(currentPowerup=="gatling"){
                     if(timer.millisElapsed()<500){
                         startedGatling = true;
                     } else if(timer.millisElapsed()>2000){
@@ -112,13 +113,18 @@ public class Tank extends SmoothMover
                         hasShot = true;
                     }
                 }
-                if(currentPowerup=="remote"){
+                else if(currentPowerup=="remote"){
                     uncontrollable = true;
                     world.addObject(new ControlledBullet(this), getX(), getY());
                     hasShot = true;
                 }
+                else if(currentPowerup=="bomb"){
+                    bombShot = true;
+                    world.addObject(new Bomb(this, getRotation()), getX(), getY());
+                    hasShot = true;
+                }
             } else {
-                hasShot = false;
+                if(!Greenfoot.isKeyDown("q")) hasShot = false;
                 timer.mark();
                 if(startedGatling){
                     startedGatling = false;
@@ -127,13 +133,13 @@ public class Tank extends SmoothMover
             }
         }
         if(color == "green"){
-            if(Greenfoot.isKeyDown("m")&&!uncontrollable){
+            if(Greenfoot.isKeyDown("m")&&!uncontrollable&&!bombShot){
                 if(currentPowerup=="none"&&!hasShot&&!checkExceed()){
                     world.addObject(new Bullet(this, getRotation()), getX(), getY());
                     hasShot = true;
                     bulletsShot++;
                 }
-                if(currentPowerup=="gatling"){
+                else if(currentPowerup=="gatling"){
                     if(timer.millisElapsed()<500){
                         //charging up
                     } else if(timer.millisElapsed()>2000){
@@ -144,13 +150,18 @@ public class Tank extends SmoothMover
                         hasShot = true;
                     }
                 }
-                if(currentPowerup=="remote"){
+                else if(currentPowerup=="remote"){
                     uncontrollable = true;
                     world.addObject(new ControlledBullet(this), getX(), getY());
                     hasShot = true;
                 }
+                else if(currentPowerup=="bomb"){
+                    bombShot = true;
+                    world.addObject(new Bomb(this, getRotation()), getX(), getY());
+                    hasShot = true;
+                }
             } else {
-                hasShot = false;
+                if(!Greenfoot.isKeyDown("m")) hasShot = false;
                 timer.mark();
             }  
         }
@@ -178,5 +189,13 @@ public class Tank extends SmoothMover
     public void remoteExpire(){
         uncontrollable = false;
         currentPowerup = "none";
+    }
+    public void bombExpire(){
+        bombShot = false;
+        currentPowerup = "none";
+        hasShot = true;
+    }
+    public boolean hasShot(){
+        return hasShot;
     }
 }
