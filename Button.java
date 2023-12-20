@@ -1,9 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-
+/**
+ * A special extension of the Label, this class allows label to be
+ * clicked for an effect that is pre-coded into this class
+ */
 public class Button extends Label
 {
-    
     String command;
     public Button(String text, int size, String command)
     {
@@ -18,12 +20,13 @@ public class Button extends Label
         if(Greenfoot.mouseClicked(this)){
             setFillColor(Color.WHITE);
             if(command == "singleplayer" || command == "multiplayer"){
-                Game game = new Game(command);
-                Greenfoot.setWorld(game);
+                Game g = new Game(command);
+                Game.resetScores();
+                g.newGame();
+                //important; supposed to be game
             }
             if(command == "rules"){
-                Rules rules = new Rules();
-                Greenfoot.setWorld(rules);
+                Greenfoot.setWorld(new Rules());
             }
         }
     }
