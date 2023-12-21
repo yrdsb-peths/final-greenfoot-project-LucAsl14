@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Fragment extends Bullet
 {
-    public final double velocity = super.velocity + 2;
+    public final double velocity = super.velocity + 3;
     public Fragment(double dir){
         super(null, dir, true);
         lifeSpan*=2;

@@ -14,10 +14,10 @@ public class Bomb extends Bullet
         super(own, dir);
         getImage().scale(20, 20);
     }
-    public Bomb(boolean explode){
+    public Bomb(boolean explode, int fragMult){
         super(null, 0);
         exploding = explode;
-        frags*=4;
+        frags*=fragMult;
     }
     public void addedToWorld(){
         checkExplode();
