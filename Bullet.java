@@ -20,6 +20,9 @@ public class Bullet extends SmoothMover
         setRotation((int)dir);
         getImage().scale(10, 10);
     }
+    /**
+     * Creates a new small bullet with owner and direction
+     */
     public Bullet(Tank own, double dir, boolean isSmall){
         this(own, dir);
         if(isSmall){
@@ -57,7 +60,9 @@ public class Bullet extends SmoothMover
     public void move(){
         setLocation(getExactX()+vx, getExactY()+vy);
     }
-    
+    /**
+     * Checks for wall bounces
+     */
     public void checkBounce(){
         // world wall bounces
         if(getY()<=0||getY()>=getWorld().getHeight()-1)
@@ -82,6 +87,9 @@ public class Bullet extends SmoothMover
             
     }
     
+    /**
+     * Checks whether bullet collided with tank
+     */
     public void checkKill(){
         if(isTouching(Tank.class)){
             Actor dying = getOneIntersectingObject(Tank.class);

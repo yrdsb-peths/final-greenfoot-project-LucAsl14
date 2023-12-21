@@ -6,16 +6,18 @@ import java.util.Random;
 public class Tank extends SmoothMover
 {
     String color;
-    String currentPowerup = "bomb";
+    String currentPowerup = "trap";
     boolean destroyed = false;
     boolean hasShot = false;
     boolean startedGatling = false;
     boolean uncontrollable = false;
     boolean bombShot = false;
     int bulletsShot = 0; 
+    int trapsFired = 0;
     final int maxBullets = 5;
     final int moveSpeed = 3, turnSpeed = 4;
     final int gatlingSpread = 20;
+    final int maxTrap = 3;
     SimpleTimer timer = new SimpleTimer();
     Random rand = new Random();
     /** creates a tank with color "color" */
@@ -103,7 +105,7 @@ public class Tank extends SmoothMover
                     bulletsShot++;
                 }
                 else if(currentPowerup=="gatling"){
-                    if(timer.millisElapsed()<500){
+                    if(timer.millisElapsed()<1000){
                         startedGatling = true;
                     } else if(timer.millisElapsed()>2000){
                         currentPowerup = "none";
@@ -121,6 +123,14 @@ public class Tank extends SmoothMover
                 else if(currentPowerup=="bomb"){
                     bombShot = true;
                     world.addObject(new Bomb(this, getRotation()), getX(), getY());
+                    hasShot = true;
+                }
+                else if(currentPowerup=="trap"&&!hasShot){
+                    world.addObject(new Trap(getRotation()), getX(), getY());
+                    trapsFired++;
+                    if(trapsFired>=3){
+                        currentPowerup = "none";
+                    }
                     hasShot = true;
                 }
             } else {
@@ -160,13 +170,21 @@ public class Tank extends SmoothMover
                     world.addObject(new Bomb(this, getRotation()), getX(), getY());
                     hasShot = true;
                 }
+                else if(currentPowerup=="trap"&&!hasShot){
+                    world.addObject(new Trap(getRotation()), getX(), getY());
+                    trapsFired++;
+                    if(trapsFired>=3){
+                        currentPowerup = "none";
+                    }
+                    hasShot = true;
+                }
             } else {
                 if(!Greenfoot.isKeyDown("m")) hasShot = false;
                 timer.mark();
             }  
         }
     }
-    public boolean checkExceed(){
+    private boolean checkExceed(){
         return bulletsShot >= maxBullets;
     }
     public void gameOver(){
