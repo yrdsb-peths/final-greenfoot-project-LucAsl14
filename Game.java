@@ -27,6 +27,10 @@ public class Game extends World
             spawnPowerups();
             powerTimer.mark();
         }
+        
+        if(Greenfoot.isKeyDown("escape")){
+            Greenfoot.setWorld(new PauseScreen(this));
+        }
     }
     public void spawnPowerups(){
         Random rand = new Random();

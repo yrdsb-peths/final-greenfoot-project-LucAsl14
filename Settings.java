@@ -10,12 +10,14 @@ public class Settings extends World
 {
     int cx, cy;
     Button funnyTraps;
-    public Settings()
+    World world;
+    public Settings(World world)
     {    
         super(1200, 600, 1);
         cx = getWidth()/2; cy = getHeight()/2;
         setBackground("tankBackground.jpg");
         showSettings();
+        this.world = world;
     }
     private void showSettings(){
         funnyTraps = new Button("toggle funny traps", 80, "toggleTraps");
@@ -26,7 +28,7 @@ public class Settings extends World
     }
     public void act(){
         if(Greenfoot.mouseClicked(null)&&!Greenfoot.mouseClicked(funnyTraps)){
-            Greenfoot.setWorld(new TitleScreen());
+            Greenfoot.setWorld(world);
         }
     }
 }

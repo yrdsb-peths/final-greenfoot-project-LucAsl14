@@ -6,13 +6,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Button extends Label
 {
-    String command;
+    String command; 
+    World world;
+    // Default constructor
     public Button(String text, int size, String command)
     {
         super(text, size);
         this.command = command;
     }
-    
+    // Constructor for when the button is linked to a world
+    public Button(String text, int size, String command, World world){
+        this(text, size, command);
+        this.world = world;
+    }
     public void act(){
         if(Greenfoot.mousePressed(this)){
             setFillColor(Color.GRAY);
@@ -27,13 +33,19 @@ public class Button extends Label
             if(command == "rules"){
                 Greenfoot.setWorld(new Rules());
             }
-            if(command == "settings"){
-                Greenfoot.setWorld(new Settings());
+            if(command == "settings"&& world!=null){
+                Greenfoot.setWorld(new Settings(world));
             }
             if(command == "toggleTraps"){
                 if(Trap.toggleFunny()==true){
                     setFillColor(Color.GRAY);
                 }
+            }
+            if(command == "continue" && world!=null){
+                Greenfoot.setWorld(world);
+            }
+            if(command == "quit"){
+                Greenfoot.setWorld(new TitleScreen());
             }
         }
     }

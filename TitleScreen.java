@@ -6,11 +6,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TitleScreen extends World
 {
-
-    /**
-     * Constructor for objects of class TitleScreen.
-     * 
-     */
     public TitleScreen()
     {    
         super(1200, 600, 1);
@@ -20,7 +15,7 @@ public class TitleScreen extends World
         Button singleplayer = new Button("1 player", 80, "singleplayer");
         Button multiplayer = new Button("2 players", 80, "multiplayer");
         Button rules = new Button("rules", 80, "rules");
-        Button settings = new Button("settings", 80, "settings");
+        Button settings = new Button("settings", 80, "settings", this);
         
         title.setLineColor(Color.RED);
         singleplayer.setLineColor(Color.RED);
