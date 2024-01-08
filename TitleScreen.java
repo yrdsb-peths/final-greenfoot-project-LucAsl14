@@ -16,7 +16,7 @@ public class TitleScreen extends World
         super(1200, 600, 1);
         int cx = getWidth()/2, cy = getHeight()/2;
         setBackground("tankBackground.jpg");
-        Label title = new Label("Troubled Tanks©", 80);
+        Label title = new Label("Troubled Tanks", 80);
         Button singleplayer = new Button("1 player", 80, "singleplayer");
         Button multiplayer = new Button("2 players", 80, "multiplayer");
         Button rules = new Button("rules", 80, "rules");
