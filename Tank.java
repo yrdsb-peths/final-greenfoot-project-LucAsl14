@@ -6,12 +6,13 @@ import java.util.Random;
 public class Tank extends SmoothMover
 {
     String color;
-    String currentPowerup = "trap";
+    String currentPowerup = "none";
     boolean destroyed = false;
     boolean hasShot = false;
     boolean startedGatling = false;
     boolean uncontrollable = false;
     boolean bombShot = false;
+    boolean startedRay = false;
     int bulletsShot = 0; 
     int trapsFired = 0;
     final int maxBullets = 5;
@@ -19,6 +20,7 @@ public class Tank extends SmoothMover
     final int gatlingSpread = 20;
     final int maxTrap = 3;
     SimpleTimer timer = new SimpleTimer();
+    SimpleTimer chargingRay;
     Random rand = new Random();
     /** creates a tank with color "color" */
     public Tank(String color){
@@ -132,6 +134,10 @@ public class Tank extends SmoothMover
                         currentPowerup = "none";
                     }
                     hasShot = true;
+                } else if(currentPowerup=="ray"&&!startedRay){
+                    uncontrollable = true;
+                    startedRay = true;
+                    chargingRay = new SimpleTimer();
                 }
             } else {
                 if(!Greenfoot.isKeyDown("q")) hasShot = false;
@@ -177,11 +183,27 @@ public class Tank extends SmoothMover
                         currentPowerup = "none";
                     }
                     hasShot = true;
+                } else if(currentPowerup=="ray"&&!startedRay){
+                    uncontrollable = true;
+                    startedRay = true;
+                    chargingRay = new SimpleTimer();
                 }
             } else {
                 if(!Greenfoot.isKeyDown("m")) hasShot = false;
                 timer.mark();
             }  
+        }
+        
+        if(startedRay){
+            if(chargingRay.millisElapsed()>2000){
+                world.addObject(new DeathRay(this, getRotation()), getX(), getY());
+                hasShot = true;
+            }
+            if(chargingRay.millisElapsed()>4000){
+                uncontrollable = false;
+                startedRay = false;
+                currentPowerup = "none";
+            }
         }
     }
     private boolean checkExceed(){

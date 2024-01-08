@@ -9,10 +9,12 @@ import java.util.Random;
 public class Bomb extends Bullet
 {
     int frags = 20;
+    final double velocity = super.velocity - 1;
     boolean exploding = false;
     public Bomb(Tank own, double dir){
         super(own, dir);
         getImage().scale(20, 20);
+        lifeSpan*=1.5;
     }
     public Bomb(boolean explode, int fragMult){
         super(null, 0);

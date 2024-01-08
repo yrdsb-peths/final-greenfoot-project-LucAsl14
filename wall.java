@@ -15,7 +15,15 @@ public abstract class Wall extends Actor
             return;
         }
             
-        if(!isTouching(Wall.class)&&length<7)
+        if(!isTouching(Wall.class)&&length<7){
+            world.removeObject(this);
+            return;
+        }
+        if(isTouching(RightVerticalWall.class)&&this instanceof LeftVerticalWall&&length<7){
+            world.removeObject(this);
+            return;
+        }
+        if(isTouching(LeftVerticalWall.class)&&this instanceof RightVerticalWall&&length<7)
             world.removeObject(this);
     }
 }
