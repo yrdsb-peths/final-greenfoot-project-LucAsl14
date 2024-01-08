@@ -8,10 +8,21 @@ import java.util.Random;
  */
 public class Bomb extends Bullet
 {
+    int frags = 20;
+    final double velocity = super.velocity - 1;
     boolean exploding = false;
     public Bomb(Tank own, double dir){
         super(own, dir);
         getImage().scale(20, 20);
+        lifeSpan*=1.5;
+    }
+    public Bomb(boolean explode, int fragMult){
+        super(null, 0);
+        exploding = explode;
+        frags*=fragMult;
+    }
+    public void addedToWorld(){
+        checkExplode();
     }
     public void act()
     {
@@ -30,6 +41,7 @@ public class Bomb extends Bullet
         checkExplode();
     }
     public void checkKeys(){
+        if(owner==null) return;
         if(owner.hasShot()) return;
         if(owner.getColor()=="red"&&Greenfoot.isKeyDown("q")){
             exploding = true;
@@ -43,11 +55,11 @@ public class Bomb extends Bullet
         Random rand = new Random();
         if(!exploding) return;
         world.addObject(new Explosion(), getX(), getY());
-        for(int i=0; i<20; i++){
+        for(int i=0; i<frags; i++){
             int direction = rand.nextInt(360);
             world.addObject(new Fragment(direction), getX(), getY());
         }
-        owner.bombExpire();
+        if(owner!=null) owner.bombExpire();
         world.removeObject(this);
     }
 }

@@ -6,17 +6,21 @@ import java.util.Random;
 public class Tank extends SmoothMover
 {
     String color;
-    String currentPowerup = "bomb";
+    String currentPowerup = "none";
     boolean destroyed = false;
     boolean hasShot = false;
     boolean startedGatling = false;
     boolean uncontrollable = false;
     boolean bombShot = false;
+    boolean startedRay = false;
     int bulletsShot = 0; 
+    int trapsFired = 0;
     final int maxBullets = 5;
     final int moveSpeed = 3, turnSpeed = 4;
     final int gatlingSpread = 20;
+    final int maxTrap = 3;
     SimpleTimer timer = new SimpleTimer();
+    SimpleTimer chargingRay;
     Random rand = new Random();
     /** creates a tank with color "color" */
     public Tank(String color){
@@ -103,7 +107,7 @@ public class Tank extends SmoothMover
                     bulletsShot++;
                 }
                 else if(currentPowerup=="gatling"){
-                    if(timer.millisElapsed()<500){
+                    if(timer.millisElapsed()<1000){
                         startedGatling = true;
                     } else if(timer.millisElapsed()>2000){
                         currentPowerup = "none";
@@ -122,6 +126,18 @@ public class Tank extends SmoothMover
                     bombShot = true;
                     world.addObject(new Bomb(this, getRotation()), getX(), getY());
                     hasShot = true;
+                }
+                else if(currentPowerup=="trap"&&!hasShot){
+                    world.addObject(new Trap(getRotation()), getX(), getY());
+                    trapsFired++;
+                    if(trapsFired>=3){
+                        currentPowerup = "none";
+                    }
+                    hasShot = true;
+                } else if(currentPowerup=="ray"&&!startedRay){
+                    uncontrollable = true;
+                    startedRay = true;
+                    chargingRay = new SimpleTimer();
                 }
             } else {
                 if(!Greenfoot.isKeyDown("q")) hasShot = false;
@@ -160,13 +176,37 @@ public class Tank extends SmoothMover
                     world.addObject(new Bomb(this, getRotation()), getX(), getY());
                     hasShot = true;
                 }
+                else if(currentPowerup=="trap"&&!hasShot){
+                    world.addObject(new Trap(getRotation()), getX(), getY());
+                    trapsFired++;
+                    if(trapsFired>=3){
+                        currentPowerup = "none";
+                    }
+                    hasShot = true;
+                } else if(currentPowerup=="ray"&&!startedRay){
+                    uncontrollable = true;
+                    startedRay = true;
+                    chargingRay = new SimpleTimer();
+                }
             } else {
                 if(!Greenfoot.isKeyDown("m")) hasShot = false;
                 timer.mark();
             }  
         }
+        
+        if(startedRay){
+            if(chargingRay.millisElapsed()>2000){
+                world.addObject(new DeathRay(this, getRotation()), getX(), getY());
+                hasShot = true;
+            }
+            if(chargingRay.millisElapsed()>4000){
+                uncontrollable = false;
+                startedRay = false;
+                currentPowerup = "none";
+            }
+        }
     }
-    public boolean checkExceed(){
+    private boolean checkExceed(){
         return bulletsShot >= maxBullets;
     }
     public void gameOver(){

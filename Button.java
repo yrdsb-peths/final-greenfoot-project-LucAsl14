@@ -23,10 +23,17 @@ public class Button extends Label
                 Game g = new Game(command);
                 Game.resetScores();
                 g.newGame();
-                //important; supposed to be game
             }
             if(command == "rules"){
                 Greenfoot.setWorld(new Rules());
+            }
+            if(command == "settings"){
+                Greenfoot.setWorld(new Settings());
+            }
+            if(command == "toggleTraps"){
+                if(Trap.toggleFunny()==true){
+                    setFillColor(Color.GRAY);
+                }
             }
         }
     }
