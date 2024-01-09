@@ -29,6 +29,9 @@ public class Powerup extends Actor
         setImage(powerups[powerIndex]);
         getImage().scale(50, 50);
     }
+    public void addedToWorld(World world){
+        new GreenfootSound("metallic-ting.mp3").play();
+    }
     public String toString(){
         if(powerIndex == 0) return "gatling";
         if(powerIndex == 1) return "remote";

@@ -10,6 +10,7 @@ public class Bullet extends SmoothMover
     double vx, vy;
     boolean isSmall = false;
     int lifeSpan = 800;
+    GreenfootSound bounce = new GreenfootSound("ping_pong_ball.mp3");
     /**
      * Creates a new bullet with an owner and a direction
      */
@@ -64,13 +65,9 @@ public class Bullet extends SmoothMover
      * Checks for wall bounces
      */
     public void checkBounce(){
-        // world wall bounces
-        if(getY()<=0||getY()>=getWorld().getHeight()-1)
-            vy*=-1;
-        if(getX()<=0||getX()>=getWorld().getWidth()-1)
-            vx*=-1;
         if(isTouching(Wall.class)){
             Wall wall = (Wall) getOneIntersectingObject(Wall.class);
+            bounce.play();
             if(wall instanceof LeftVerticalWall){
                 vx=-Math.abs(vx);
             }

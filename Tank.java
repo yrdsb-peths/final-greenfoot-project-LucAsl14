@@ -20,8 +20,10 @@ public class Tank extends SmoothMover
     final int gatlingSpread = 20;
     final int maxTrap = 3;
     SimpleTimer timer = new SimpleTimer();
-    SimpleTimer chargingRay;
+    SimpleTimer chargingRay; 
     Random rand = new Random();
+    GreenfootSound charging = new GreenfootSound("charging.mp3");
+    GreenfootSound beam = new GreenfootSound("heavy-beam-weapon.mp3");
     /** creates a tank with color "color" */
     public Tank(String color){
         this.color = color;
@@ -109,8 +111,10 @@ public class Tank extends SmoothMover
                 else if(currentPowerup=="gatling"){
                     if(timer.millisElapsed()<1000){
                         startedGatling = true;
+                        charging.play();
                     } else if(timer.millisElapsed()>2000){
                         currentPowerup = "none";
+                        charging.stop();
                     } else {
                         int adj = rand.nextInt(gatlingSpread)-gatlingSpread/2;
                         world.addObject(new Bullet(this, getRotation()+adj, true), getX(), getY());
@@ -132,6 +136,7 @@ public class Tank extends SmoothMover
                     trapsFired++;
                     if(trapsFired>=3){
                         currentPowerup = "none";
+                        trapsFired = 0;
                     }
                     hasShot = true;
                 } else if(currentPowerup=="ray"&&!startedRay){
@@ -145,6 +150,7 @@ public class Tank extends SmoothMover
                 if(startedGatling){
                     startedGatling = false;
                     currentPowerup = "none";
+                    charging.stop();
                 }
             }
         }
@@ -157,9 +163,11 @@ public class Tank extends SmoothMover
                 }
                 else if(currentPowerup=="gatling"){
                     if(timer.millisElapsed()<500){
-                        //charging up
+                        startedGatling = true;
+                        charging.play();
                     } else if(timer.millisElapsed()>2000){
                         currentPowerup = "none";
+                        charging.stop();
                     } else {
                         int adj = rand.nextInt(gatlingSpread)-gatlingSpread/2;
                         world.addObject(new Bullet(this, getRotation()+adj, true), getX(), getY());
@@ -181,6 +189,7 @@ public class Tank extends SmoothMover
                     trapsFired++;
                     if(trapsFired>=3){
                         currentPowerup = "none";
+                        trapsFired = 0;
                     }
                     hasShot = true;
                 } else if(currentPowerup=="ray"&&!startedRay){
@@ -191,15 +200,26 @@ public class Tank extends SmoothMover
             } else {
                 if(!Greenfoot.isKeyDown("m")) hasShot = false;
                 timer.mark();
+                if(startedGatling){
+                    startedGatling = false;
+                    currentPowerup = "none";
+                    charging.stop();
+                }
             }  
         }
         
         if(startedRay){
+            if(chargingRay.millisElapsed()<2000){
+                charging.play();
+            }
             if(chargingRay.millisElapsed()>2000){
+                charging.stop();
+                beam.play();
                 world.addObject(new DeathRay(this, getRotation()), getX(), getY());
                 hasShot = true;
             }
             if(chargingRay.millisElapsed()>4000){
+                beam.stop();
                 uncontrollable = false;
                 startedRay = false;
                 currentPowerup = "none";

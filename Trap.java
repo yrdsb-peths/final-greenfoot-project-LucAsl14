@@ -22,6 +22,7 @@ public class Trap extends SmoothMover
     double dx, dy;
     final int distanceBehind = 50;
     SimpleTimer timer;
+    GreenfootSound beep = new GreenfootSound("beep.mp3");
     public Trap(double dir){
         getImage().scale(30, 30);
         dx = distanceBehind*Math.cos(Math.toRadians(dir));
@@ -29,6 +30,7 @@ public class Trap extends SmoothMover
     }
     public void addedToWorld(World world){
         setLocation(getX()-dx, getY()-dy);
+        beep.play();
     }
     public void act(){
         if(isAnimating){
@@ -44,6 +46,7 @@ public class Trap extends SmoothMover
     private void checkCollision(){
         if(isTouching(Tank.class)){
             isHidden = false;
+            if(getImage().getTransparency()!=255) beep.play();
             getImage().setTransparency(255);
         } else {
             if(!isHidden){
@@ -57,8 +60,8 @@ public class Trap extends SmoothMover
             if(timer==null) timer = new SimpleTimer();
             if(timer.millisElapsed()<250) return;
             if(funnyTraps&&timer.millisElapsed()<500) return;
-            if(funnyTraps) world.addObject(new Bomb(true, 1), getX(), getY());
-            else world.addObject(new Bomb(true, 4), getX(), getY());
+            if(funnyTraps) world.addObject(new Bomb(true, 0.1, true), getX(), getY());
+            else world.addObject(new Bomb(true, 4, false), getX(), getY());
             if(!funnyTraps) world.removeObject(this);
         }
     }

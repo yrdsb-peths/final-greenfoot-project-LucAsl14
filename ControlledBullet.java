@@ -28,14 +28,8 @@ public class ControlledBullet extends Bullet
         checkBounce();
     }
     public void checkBounce(){
-        // world wall bounces
-        if(getY()<=0||getY()>=getWorld().getHeight()-1){
-            setRotation(180-getRotation());
-        }
-        if(getX()<=0||getX()>=getWorld().getWidth()-1){
-            setRotation(180-getRotation());
-        }
         if(isTouching(Wall.class)){
+            bounce.play();
             Wall wall = (Wall) getOneIntersectingObject(Wall.class);
             if(wall instanceof LeftVerticalWall){
                 setRotation(180-getRotation());

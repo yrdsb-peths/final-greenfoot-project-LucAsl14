@@ -11,15 +11,17 @@ public class Bomb extends Bullet
     int frags = 20;
     final double velocity = super.velocity - 1;
     boolean exploding = false;
+    boolean funny = false;
     public Bomb(Tank own, double dir){
         super(own, dir);
         getImage().scale(20, 20);
         lifeSpan*=1.5;
     }
-    public Bomb(boolean explode, int fragMult){
+    public Bomb(boolean explode, double fragMult, boolean funny){
         super(null, 0);
         exploding = explode;
         frags*=fragMult;
+        this.funny = funny;
     }
     public void addedToWorld(){
         checkExplode();
@@ -54,7 +56,8 @@ public class Bomb extends Bullet
         Game world = (Game) getWorld();
         Random rand = new Random();
         if(!exploding) return;
-        world.addObject(new Explosion(), getX(), getY());
+        if(!funny) world.addObject(new Explosion(), getX(), getY());
+        else world.addObject(new Explosion(32), getX(), getY());
         for(int i=0; i<frags; i++){
             int direction = rand.nextInt(360);
             world.addObject(new Fragment(direction), getX(), getY());

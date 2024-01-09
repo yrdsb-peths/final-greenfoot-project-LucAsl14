@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Explosion extends Actor
 {
     GreenfootImage[] sprites = new GreenfootImage[16];
+    GreenfootSound boom = new GreenfootSound("explosion.wav");
+    boolean noSound = false;
     public Explosion(){
         for(int i=0; i<16; i++){
             sprites[i] = new GreenfootImage("explosion/explosion"+i+".png");
@@ -21,8 +23,11 @@ public class Explosion extends Actor
             sprites[i].scale(imageSize, imageSize);
         }
         setImage(sprites[0]);
+        noSound = true;
     }
-    
+    public void addedToWorld(World world){
+        if(!noSound) boom.play();
+    }
     int aniFrames = 0;
     int timeElapsed = 0;
     public void act()

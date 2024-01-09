@@ -81,7 +81,7 @@ public class DeathRay extends Bullet
              } else {
                  turnSpeed = speed;
              }
-            if(homingCount==3){
+            if(homingCount==2){
                 turn(turnSpeed);
                 homingCount=0;
             }
