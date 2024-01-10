@@ -8,6 +8,7 @@ public class Maze1 extends Game
 {
     int cx, cy;
     Tank red, green;
+    Tank[] targets = new Tank[3];
     public Maze1(String gameType)
     {    
         super(gameType); 
@@ -15,14 +16,32 @@ public class Maze1 extends Game
         if(gameType=="multiplayer"){
             makeObjects2();
             makeLimits();
+            makeScores2();
+            makeMaze();
+        } else if(gameType=="singleplayer"){
+            makeObjects();
+            makeLimits();
             makeScores();
             makeMaze();
         } else {
-            Label pity = new Label("Go get a friend ;)", 50);
-            addObject(pity, cx, cy);
+            Label problem = new Label("Something went wrong", 80);
+            addObject(problem, cx, cy);
         }
     }
-    
+    private void makeObjects(){
+        red = new Tank("red");
+        Random rand = new Random();
+        for(int i=0; i<3; i++){
+            targets[i] = new Tank("blue");
+            int x = rand.nextInt(13);
+            int y = rand.nextInt(8);
+            addObject(targets[i], x*75+150, y*75+37);
+            targets[i].turn(rand.nextInt(360));
+        }
+        
+        addObject(red, cx, cy);
+        red.turn(rand.nextInt(360));
+    }
     private void makeObjects2(){
         red = new Tank("red");
         green = new Tank("green");

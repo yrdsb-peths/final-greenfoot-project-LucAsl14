@@ -10,6 +10,7 @@ public class Game extends World
     int cx, cy;
     static Counter redScoreCounter = new Counter();
     static Counter greenScoreCounter = new Counter();
+    Counter timeCounter = new Counter();
     public Game(String gameType){    
         super(1200, 600, 1);
         cx = getWidth()/2; cy = getHeight()/2;
@@ -19,11 +20,22 @@ public class Game extends World
     public void act(){
         if(counting&&timer.millisElapsed()>3000){
             endGame();
+            return;
         }
         if(ended&&timer.millisElapsed()>1000){
             newGame();
+            return;
         }
-        if(powerTimer.millisElapsed()>8000){    
+        timeCounter.setValue(60-(timer.millisElapsed()/1000));
+        if(timeCounter.getValue()<=0){
+            endGame();
+            return;
+        }
+        if(gameType=="multiplayer" && powerTimer.millisElapsed()>8000){    
+            spawnPowerups();
+            powerTimer.mark();
+        }
+        if(gameType=="singleplayer" && powerTimer.millisElapsed()>2000){
             spawnPowerups();
             powerTimer.mark();
         }
@@ -47,7 +59,7 @@ public class Game extends World
         addObject(new BottomHorizontalWall(1000-24), cx, 0);
         addObject(new TopHorizontalWall(1000-24), cx, getHeight());
     }
-    protected void makeScores(){
+    protected void makeScores2(){
         Label redTankSprite = new Label(new GreenfootImage("redTank_base.png"));
         Label greenTankSprite = new Label(new GreenfootImage("greenTank_base.png"));
         
@@ -55,10 +67,21 @@ public class Game extends World
         addObject(greenTankSprite, getWidth()-50, cy-100);
         addObject(redScoreCounter, 50, cy+100);
         addObject(greenScoreCounter, getWidth()-50, cy+100);
+        
         redTankSprite.turn(90);
         redTankSprite.getImage().scale(45, 30);
         greenTankSprite.turn(90);
         greenTankSprite.getImage().scale(45, 30);
+    }
+    protected void makeScores(){
+        Label redTankSprite = new Label(new GreenfootImage("redTank_base.png"));
+        
+        addObject(redTankSprite, 50, cy-100);
+        addObject(redScoreCounter, 50, cy+100);
+        addObject(timeCounter, getWidth()-50, cy+100);
+        
+        redTankSprite.turn(90);
+        redTankSprite.getImage().scale(45, 30);
     }
     public void startCounting(){
         if(ended) return;
@@ -68,13 +91,20 @@ public class Game extends World
     public void endGame(){
         if(!ended){
             ended = true;
-            if(!redDied){ 
-                redScoreCounter.add(1);
-                addObject(new Explosion(), redScoreCounter.getX(), redScoreCounter.getY());
-            }
-              if(!greenDied){ 
-                greenScoreCounter.add(1);
-                addObject(new Explosion(), greenScoreCounter.getX(), greenScoreCounter.getY());
+            if(gameType=="multiplayer"){
+                if(!redDied){ 
+                    redScoreCounter.add(1);
+                    addObject(new Explosion(), redScoreCounter.getX(), redScoreCounter.getY());
+                }
+                  if(!greenDied){ 
+                    greenScoreCounter.add(1);
+                    addObject(new Explosion(), greenScoreCounter.getX(), greenScoreCounter.getY());
+                }
+            } else if(gameType=="singleplayer"){
+                Greenfoot.setWorld(new ScoreScreen(redScoreCounter.getValue()));
+            } else {
+                Label problem = new Label("something went wrong, please contact dev", 80);
+                addObject(problem, cx, cy);
             }
             timer.mark();
         }

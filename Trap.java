@@ -63,6 +63,7 @@ public class Trap extends SmoothMover
             if(funnyTraps) world.addObject(new Bomb(true, 0.1, true), getX(), getY());
             else world.addObject(new Bomb(true, 4, false), getX(), getY());
             if(!funnyTraps) world.removeObject(this);
+            if(world.gameType == "singleplayer") world.removeObject(this);
         }
     }
 }

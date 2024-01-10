@@ -48,5 +48,10 @@ public class Button extends Label
                 Greenfoot.setWorld(new TitleScreen());
             }
         }
+        if(command == "toggleTraps"){
+            if(Trap.funnyTraps==true){
+                setFillColor(Color.GRAY);
+            }
+        }
     }
 }

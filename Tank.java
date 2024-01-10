@@ -241,6 +241,16 @@ public class Tank extends SmoothMover
             world.greenDied = true;
             world.startCounting();
         }
+        if(color == "blue"){
+            world.redScoreCounter.add(1);
+            world.addObject(new Explosion(), world.redScoreCounter.getX(), world.redScoreCounter.getY());
+            Random rand = new Random();
+            int x = rand.nextInt(13);
+            int y = rand.nextInt(8);
+            setLocation(x*75+150, y*75+37);
+            setRotation(rand.nextInt(360));
+            return;
+        }
         getWorld().removeObject(this);
     }
     public String getColor(){
