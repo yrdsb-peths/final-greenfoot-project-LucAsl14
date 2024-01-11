@@ -27,7 +27,7 @@ public class Game extends World
             return;
         }
         timeCounter.setValue(60-(timer.millisElapsed()/1000));
-        if(timeCounter.getValue()<=0){
+        if(timeCounter.getValue()<=0&&gameType=="singleplayer"){
             endGame();
             return;
         }

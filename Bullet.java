@@ -36,11 +36,6 @@ public class Bullet extends SmoothMover
         // makes the bullet leave the barrel of the gun instead of exploding inside
         while(owner!=null&&intersects(owner)&&!isTouching(Wall.class)){
             move();
-            if(isAtEdge()){
-                world.removeObject(this);
-                if(!isSmall) owner.bulletsShot--;
-                return;
-            }
         }
     }
     public void act()
@@ -89,13 +84,9 @@ public class Bullet extends SmoothMover
      */
     public void checkKill(){
         if(isTouching(Tank.class)){
-            Actor dying = getOneIntersectingObject(Tank.class);
-            Tank dyingTank;
-            if(dying instanceof Tank){
-                dyingTank = (Tank) dying;
-                dyingTank.gameOver();
-                lifeSpan = 0;
-            }
+            Tank dyingTank = (Tank) getOneIntersectingObject(Tank.class);
+            dyingTank.gameOver();
+            lifeSpan = 0;
         }
     }
 }

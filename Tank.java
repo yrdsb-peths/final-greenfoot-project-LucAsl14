@@ -6,7 +6,7 @@ import java.util.Random;
 public class Tank extends SmoothMover
 {
     String color;
-    String currentPowerup = "none";
+    String currentPowerup = "drill";
     boolean destroyed = false;
     boolean hasShot = false;
     boolean startedGatling = false;
@@ -143,6 +143,10 @@ public class Tank extends SmoothMover
                     uncontrollable = true;
                     startedRay = true;
                     chargingRay = new SimpleTimer();
+                } else if(currentPowerup=="drill"&&!hasShot){
+                    world.addObject(new Drill(this, getRotation()), getX(), getY());
+                    hasShot = true;
+                    // currentPowerup = "none";
                 }
             } else {
                 if(!Greenfoot.isKeyDown("q")) hasShot = false;
@@ -162,7 +166,7 @@ public class Tank extends SmoothMover
                     bulletsShot++;
                 }
                 else if(currentPowerup=="gatling"){
-                    if(timer.millisElapsed()<500){
+                    if(timer.millisElapsed()<1000){
                         startedGatling = true;
                         charging.play();
                     } else if(timer.millisElapsed()>2000){
@@ -196,6 +200,10 @@ public class Tank extends SmoothMover
                     uncontrollable = true;
                     startedRay = true;
                     chargingRay = new SimpleTimer();
+                } else if(currentPowerup=="drill"&&!hasShot){
+                    world.addObject(new Drill(this, getRotation()), getX(), getY());
+                    hasShot = true;
+                    currentPowerup = "none";
                 }
             } else {
                 if(!Greenfoot.isKeyDown("m")) hasShot = false;

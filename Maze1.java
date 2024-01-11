@@ -56,7 +56,7 @@ public class Maze1 extends Game
     private void makeMaze(){
         Random rand = new Random();
         for(int i=0; i<32; i++){
-            int x = rand.nextInt(13)*75+112+38;
+            int x = (rand.nextInt(13)+2)*75;
             int y = (rand.nextInt(7)+1)*75;
             addObject(new TopHorizontalWall(), x, y-2);
             addObject(new BottomHorizontalWall(), x, y+2);
