@@ -39,7 +39,7 @@ public class Maze1 extends Game
             targets[i].turn(rand.nextInt(360));
         }
         
-        addObject(red, cx, cy);
+        addObject(red, cx, cy+37);
         red.turn(rand.nextInt(360));
     }
     private void makeObjects2(){
@@ -47,8 +47,8 @@ public class Maze1 extends Game
         green = new Tank("green");
         Random rand = new Random();
         
-        addObject(red, cx-450+37, 75);
-        addObject(green, cx+450-37, getHeight()-75);
+        addObject(red, cx-450+75, 75+37);
+        addObject(green, cx+450-75, getHeight()-75-37);
         red.turn(rand.nextInt(360));
         green.turn(rand.nextInt(360));
     }
@@ -60,16 +60,16 @@ public class Maze1 extends Game
             int y = (rand.nextInt(7)+1)*75;
             addObject(new TopHorizontalWall(), x, y-2);
             addObject(new BottomHorizontalWall(), x, y+2);
-            addObject(new LeftVerticalWall(4), x-37, y);
-            addObject(new RightVerticalWall(4), x+37, y);
+            addObject(new LeftVerticalWall(5), x-37, y);
+            addObject(new RightVerticalWall(5), x+37, y);
         }
         for(int i=0; i<32; i++){
-            int x = (rand.nextInt(12)+1)*75+112;
+            int x = (rand.nextInt(12)+2)*75+37;
             int y = rand.nextInt(8)*75+37;
             addObject(new LeftVerticalWall(), x-2, y);
             addObject(new RightVerticalWall(), x+2, y);
-            addObject(new TopHorizontalWall(4), x, y-37);
-            addObject(new BottomHorizontalWall(4), x, y+37);
+            addObject(new TopHorizontalWall(5), x, y-37);
+            addObject(new BottomHorizontalWall(5), x, y+37);
         }
     }
 }

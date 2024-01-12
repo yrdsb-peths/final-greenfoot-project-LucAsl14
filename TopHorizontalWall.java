@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class TopHorizontalWall extends Wall
+public class TopHorizontalWall extends HorizontalWall
 {
     public TopHorizontalWall(){
         this(75);
