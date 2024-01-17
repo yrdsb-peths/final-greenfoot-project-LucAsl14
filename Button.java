@@ -20,7 +20,9 @@ public class Button extends Label
         this.world = world;
     }
     public void addedToWorld(World world){
+        // sets the color to gray if they are already on
         if(command=="toggleFunnyTraps" && Trap.isFunny
+         ||command=="toggleFunnyRays" && DeathRay.isFunny
          ||command=="toggleGatling" && Powerup.isActive[0]
          ||command=="toggleRemote" && Powerup.isActive[1]
          ||command=="toggleBomb" && Powerup.isActive[2]
@@ -30,6 +32,7 @@ public class Button extends Label
          setFillColor(Color.GRAY);
     }
     public void act(){
+        // sets the color to gray when pressed to give a feeling of a button press
         if(Greenfoot.mousePressed(this)){
             setFillColor(Color.GRAY);
         }
@@ -48,6 +51,11 @@ public class Button extends Label
             }
             if(command == "toggleFunnyTraps"){
                 if(Trap.toggleFunny()){
+                    setFillColor(Color.GRAY);
+                }
+            }
+            if(command == "toggleFunnyRays"){
+                if(DeathRay.toggleFunny()){
                     setFillColor(Color.GRAY);
                 }
             }

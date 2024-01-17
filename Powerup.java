@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
 /**
- * Write a description of class Powerup here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Responsible for the creation of powerups
  */
 public class Powerup extends Actor
 {
@@ -16,8 +13,9 @@ public class Powerup extends Actor
         new GreenfootImage("death_ray.png"),
         new GreenfootImage("wall_delete.png")
         };
+    // You can edit the chances array to make certain powerups less likely to appear
     //          power indices = { gatling, remote, frag, trap,  ray, drill };
-    int[]             chances = {     100,    100,  100,  100,  100,   100 };
+    final  int[]      chances = {     100,    100,  100,  100,  100,   100 };
     static boolean[] isActive = {    true,   true, true, true, true,  true };
     /**
      * 0 - gatling gun
@@ -28,34 +26,50 @@ public class Powerup extends Actor
      * 5 - wall deleting bullet (drill)
      */
     int powerIndex;
+    /**
+     * Creates a new powerup that is random.
+     */
     public Powerup(){
         Random rand = new Random();
         int roll = rand.nextInt(100)+1;
         powerIndex = rand.nextInt(powerups.length);
-        while(roll > chances[powerIndex]){
+        // if the roll is greater than the probability of getting that powerup,
+        // or if the powerup is inactive,
+        // reroll to pick a new powerup
+        while(roll > chances[powerIndex] || !isActive[powerIndex]){
             roll = rand.nextInt(100);
             powerIndex = rand.nextInt(powerups.length);
         }
         setImage(powerups[powerIndex]);
         getImage().scale(50, 50);
     }
-    // for pre-defined powerups
+    /**
+     * Creates a new powerup that is predefined.
+     */
     public Powerup(int index){
         powerIndex = index;
         setImage(powerups[powerIndex]);
         getImage().scale(50, 50);
     }
     public void addedToWorld(World world){
+        // to make sure there is only 1 powerup on a tile at a time
         if(isTouching(Powerup.class)){
             getWorld().removeObject(this);
             return;
         }
         new GreenfootSound("metallic-ting.mp3").play();
     }
+    /**
+     * Called from a button is the "PowerupSettings" world, this toggles 
+     * whether a certain powerup is active
+     */
     public static boolean togglePowerup(int index){
         isActive[index] = !isActive[index];
         return isActive[index];
     }
+    /**
+     * used to translate the power index into a string with the powerup name
+     */
     public String toString(){
         if(powerIndex == 0) return "gatling";
         if(powerIndex == 1) return "remote";

@@ -7,7 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Settings extends World
 {
     int cx, cy;
-    Button funnyTraps, togglePowerups;
+    Button funnyTraps, togglePowerups, funnyRays;
     World world;
     /**
      * constructor for Settings
@@ -23,12 +23,15 @@ public class Settings extends World
      * makes the buttons for the settings mentioned in the description
      */
     protected void showSettings(){
+        funnyRays = new Button("toggle funny death ray", 80, "toggleFunnyRays");
         funnyTraps = new Button("toggle funny traps", 80, "toggleFunnyTraps");
         togglePowerups = new Button("powerups", 80, "powerups", this);
         
+        funnyRays.setLineColor(Color.RED);
         funnyTraps.setLineColor(Color.RED);
         togglePowerups.setLineColor(Color.RED);
         
+        addObject(funnyRays, cx, cy-100);
         addObject(funnyTraps, cx, cy);
         addObject(togglePowerups, cx, cy+100);
     }
