@@ -1,10 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Trap here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * a trap that can be placed down and become invisible, it explodes when
+ * stepped on
  */
 public class Trap extends SmoothMover
 {
@@ -23,6 +21,9 @@ public class Trap extends SmoothMover
     final int distanceBehind = 50;
     SimpleTimer timer;
     GreenfootSound beep = new GreenfootSound("beep.mp3");
+    /**
+     * constructor
+     */
     public Trap(double dir){
         getImage().scale(30, 30);
         dx = distanceBehind*Math.cos(Math.toRadians(dir));
@@ -33,6 +34,7 @@ public class Trap extends SmoothMover
         beep.play();
     }
     public void act(){
+        // becomes invisible
         if(isAnimating){
             getImage().setTransparency(transparency-=4);
             if(transparency<=4){
@@ -44,6 +46,7 @@ public class Trap extends SmoothMover
         checkExplode();
     }
     private void checkCollision(){
+        // explodes if touching a tank
         if(isTouching(Tank.class)){
             isHidden = false;
             if(getImage().getTransparency()!=255) beep.play();
@@ -54,6 +57,9 @@ public class Trap extends SmoothMover
             }
         }
     }
+    /**
+     * explosion logics
+     */
     private void checkExplode(){
         Game world = (Game) getWorld();
         if(isExploding){

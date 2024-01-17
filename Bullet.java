@@ -32,7 +32,7 @@ public class Bullet extends SmoothMover
             isSmall = true;
         }
     }
-    protected void addedToWorld(World world){
+    public void addedToWorld(World world){
         // makes the bullet leave the barrel of the gun instead of exploding inside
         while(owner!=null&&intersects(owner)&&!isTouching(Wall.class)){
             move();
@@ -53,13 +53,13 @@ public class Bullet extends SmoothMover
         checkBounce();
     }
     
-    public void move(){
+    protected void move(){
         setLocation(getExactX()+vx, getExactY()+vy);
     }
     /**
      * Checks for wall bounces
      */
-    public void checkBounce(){
+    protected void checkBounce(){
         if(isTouching(Wall.class)){
             Wall wall = (Wall) getOneIntersectingObject(Wall.class);
             bounce.play();
@@ -76,13 +76,12 @@ public class Bullet extends SmoothMover
                 vy=Math.abs(vy); 
             }
         }
-            
     }
     
     /**
      * Checks whether bullet collided with tank
      */
-    public void checkKill(){
+    protected void checkKill(){
         if(isTouching(Tank.class)){
             Tank dyingTank = (Tank) getOneIntersectingObject(Tank.class);
             dyingTank.gameOver();

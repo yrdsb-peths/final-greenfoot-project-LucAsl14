@@ -1,14 +1,14 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class ControlledBullet here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * A bullet that is controlled by a player
  */
 public class ControlledBullet extends Bullet
 {
     final int turnSpeed = 5;
+    /**
+     * makes a new controlled bullet
+     */
     public ControlledBullet(Tank owner){
         super(owner, owner.getRotation());
         getImage().scale(15,15);
@@ -22,12 +22,16 @@ public class ControlledBullet extends Bullet
             return;
         }
         checkKeys();
+        // adds a trail of explosion for cosmetics
         world.addObject(new Explosion(9), getX(), getY());
         move(velocity);
         checkKill();
         checkBounce();
     }
-    public void checkBounce(){
+    /**
+     * special bouncing that comes with the fact that vx and vy were not used
+     */
+    protected void checkBounce(){
         if(isTouching(Wall.class)){
             bounce.play();
             Wall wall = (Wall) getOneIntersectingObject(Wall.class);
@@ -49,7 +53,10 @@ public class ControlledBullet extends Bullet
             }
         }
     }
-    public void checkKeys(){
+    /**
+     * checks for key presses from its owner
+     */
+    private void checkKeys(){
         if(owner.getColor()=="red"){
             if(Greenfoot.isKeyDown("a")){
                 turn(-turnSpeed);

@@ -81,7 +81,11 @@ public class Tank extends SmoothMover
             }   
         }
     }
-    public void checkCollisions(){
+    /**
+     * basically checking collisions to make sure the tank does not clip
+     * through walls
+     */
+    private void checkCollisions(){
         if(isTouching(RightVerticalWall.class)){
             setLocation(getX()+moveSpeed, getY());
         }
@@ -99,7 +103,13 @@ public class Tank extends SmoothMover
             removeTouching(Powerup.class);
         }
     }
-    public void checkShots(){
+    /**
+     * checks whether the shooting button has been clicked, and shoots a shot
+     * according to what powerup the player is currently holding.
+     * 
+     * powerup descriptions in README
+     */
+    private void checkShots(){
         Game world = (Game) getWorld();
         if(color == "red"){
             if(Greenfoot.isKeyDown("q")&&!uncontrollable&&!bombShot){
@@ -121,12 +131,12 @@ public class Tank extends SmoothMover
                         hasShot = true;
                     }
                 }
-                else if(currentPowerup=="remote"){
+                else if(currentPowerup=="remote"&&!hasShot){
                     uncontrollable = true;
                     world.addObject(new ControlledBullet(this), getX(), getY());
                     hasShot = true;
                 }
-                else if(currentPowerup=="bomb"){
+                else if(currentPowerup=="bomb"&&!hasShot){
                     bombShot = true;
                     world.addObject(new Bomb(this, getRotation()), getX(), getY());
                     hasShot = true;
@@ -139,7 +149,7 @@ public class Tank extends SmoothMover
                         trapsFired = 0;
                     }
                     hasShot = true;
-                } else if(currentPowerup=="ray"&&!startedRay){
+                } else if(currentPowerup=="ray"&&!startedRay&&!hasShot){
                     uncontrollable = true;
                     startedRay = true;
                     chargingRay = new SimpleTimer();
@@ -178,12 +188,12 @@ public class Tank extends SmoothMover
                         hasShot = true;
                     }
                 }
-                else if(currentPowerup=="remote"){
+                else if(currentPowerup=="remote"&&!hasShot){
                     uncontrollable = true;
                     world.addObject(new ControlledBullet(this), getX(), getY());
                     hasShot = true;
                 }
-                else if(currentPowerup=="bomb"){
+                else if(currentPowerup=="bomb"&&!hasShot){
                     bombShot = true;
                     world.addObject(new Bomb(this, getRotation()), getX(), getY());
                     hasShot = true;
@@ -196,7 +206,7 @@ public class Tank extends SmoothMover
                         trapsFired = 0;
                     }
                     hasShot = true;
-                } else if(currentPowerup=="ray"&&!startedRay){
+                } else if(currentPowerup=="ray"&&!startedRay&&!hasShot){
                     uncontrollable = true;
                     startedRay = true;
                     chargingRay = new SimpleTimer();
@@ -216,6 +226,7 @@ public class Tank extends SmoothMover
             }  
         }
         
+        // sound effects for death ray and also functionality
         if(startedRay){
             if(chargingRay.millisElapsed()<2000){
                 charging.play();
@@ -234,9 +245,14 @@ public class Tank extends SmoothMover
             }
         }
     }
+    /** check whether the tank has shot too many normal bullets */
     private boolean checkExceed(){
         return bulletsShot >= maxBullets;
     }
+    /**
+     * called when a tank has died, toggles the ending flag for multiplayer
+     * or instantly adds a point in singleplayer
+     */
     public void gameOver(){
         Game world = (Game) getWorld();
         world.addObject(new Explosion(), getX(), getY());
@@ -261,18 +277,22 @@ public class Tank extends SmoothMover
         }
         getWorld().removeObject(this);
     }
+    /** getter for color */
     public String getColor(){
         return color;
     }
+    /** when remote expires, end the powerup state */
     public void remoteExpire(){
         uncontrollable = false;
         currentPowerup = "none";
     }
+    /** when bomb expires, end the powerup state */
     public void bombExpire(){
         bombShot = false;
         currentPowerup = "none";
         hasShot = true;
     }
+    /** another getter */
     public boolean hasShot(){
         return hasShot;
     }

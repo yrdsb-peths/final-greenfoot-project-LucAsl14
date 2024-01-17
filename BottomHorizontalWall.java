@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class horizontalWall here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * further categorization of walls
  */
 public class BottomHorizontalWall extends HorizontalWall
 {

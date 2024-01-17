@@ -2,10 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.List;
 
 /**
- * Write a description of class wall here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * walls, which comprises everything about mazes
  */
 public abstract class Wall extends Actor
 {
@@ -16,20 +13,28 @@ public abstract class Wall extends Actor
         if(!isTouching(Wall.class)&&length<7){
             world.removeObject(this);
             return;
-        } else if(length<7){
-            if(((Wall) getOneIntersectingObject(Wall.class)).length<7)
-                world.removeObject(this);
-                return;
-        }
+        } 
         
         // prevents small walls from forming perpendicular to world border
         if(isTouching(VerticalWall.class)&&this instanceof VerticalWall&&length<7){
-            world.removeObject(this);
-            return;
+            List<Wall> touchingWalls = getIntersectingObjects(Wall.class);
+            while(touchingWalls.size()!=0){
+                if(touchingWalls.get(0).length>80){
+                    world.removeObject(this);
+                    return;
+                }
+                touchingWalls.remove(0);
+            }
         }
         if(isTouching(HorizontalWall.class)&&this instanceof HorizontalWall&&length<7){
-            world.removeObject(this);
-            return;
+            List<Wall> touchingWalls = getIntersectingObjects(Wall.class);
+            while(touchingWalls.size()!=0){
+                if(touchingWalls.get(0).length>80){
+                    world.removeObject(this);
+                    return;
+                }
+                touchingWalls.remove(0);
+            }
         }
         
         // prevents single perpendicular small walls from forming
@@ -47,7 +52,7 @@ public abstract class Wall extends Actor
         if(length<7) return false;
         if(length>=80) return true;
         World world = getWorld();
-        List<Wall> areaWalls = getNeighbours(100, true, Wall.class);
+        List<Wall> areaWalls = getNeighbours(300, true, Wall.class);
         List<Wall> touchingWalls = getIntersectingObjects(Wall.class);
         int x = getX(), y = getY();
         world.removeObject(this);
@@ -90,17 +95,17 @@ public abstract class Wall extends Actor
             areaWalls.remove(0);
         }
         if(this instanceof TopHorizontalWall){
-            world.addObject(new LeftVerticalWall(4), x+36, y+2);
-            world.addObject(new RightVerticalWall(4), x-36, y+2);
+            world.addObject(new LeftVerticalWall(6), x+38, y+2);
+            world.addObject(new RightVerticalWall(6), x-38, y+2);
         } else if(this instanceof BottomHorizontalWall){
-            world.addObject(new LeftVerticalWall(4), x+36, y-2);
-            world.addObject(new RightVerticalWall(4), x-36, y-2);
+            world.addObject(new LeftVerticalWall(6), x+38, y-2);
+            world.addObject(new RightVerticalWall(6), x-38, y-2);
         } else if(this instanceof LeftVerticalWall){
-            world.addObject(new TopHorizontalWall(4), x+2, y+36);
-            world.addObject(new BottomHorizontalWall(4), x+2, y-36);
+            world.addObject(new TopHorizontalWall(6), x+2, y+38);
+            world.addObject(new BottomHorizontalWall(6), x+2, y-38);
         } else if(this instanceof RightVerticalWall){
-            world.addObject(new TopHorizontalWall(4), x-2, y+36);
-            world.addObject(new BottomHorizontalWall(4), x-2, y-36);
+            world.addObject(new TopHorizontalWall(6), x-2, y+38);
+            world.addObject(new BottomHorizontalWall(6), x-2, y-38);
         } 
         return true;
     }

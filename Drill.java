@@ -1,7 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
+/**
+ * the drill is a special bullet that delets walls instead of bouncing
+ */
 public class Drill extends Bullet
 {
+    /**
+     * makes a drill that has more speed than a 
+     */
     public Drill(Tank own, double dir){
         super(own, dir, true);
         getImage().scale(8, 8);
@@ -9,7 +15,7 @@ public class Drill extends Bullet
     }
     
     /**
-     * Override of checkBounce to not delete wall instead
+     * Override of checkBounce to delete wall instead
      */
     public void checkBounce(){
         if(isTouching(Wall.class)){
