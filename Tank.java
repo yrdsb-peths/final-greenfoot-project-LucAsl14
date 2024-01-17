@@ -146,7 +146,7 @@ public class Tank extends SmoothMover
                 } else if(currentPowerup=="drill"&&!hasShot){
                     world.addObject(new Drill(this, getRotation()), getX(), getY());
                     hasShot = true;
-                    // currentPowerup = "none";
+                    currentPowerup = "none";
                 }
             } else {
                 if(!Greenfoot.isKeyDown("q")) hasShot = false;

@@ -2,17 +2,27 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Random;
 
 /**
- * The first maze
+ * The first maze, and unfortunately due to time constraints, the only maze.
+ * This maze is fully randomly generated!
  */
 public class Maze1 extends Game
 {
-    int cx, cy;
     Tank red, green;
     Tank[] targets = new Tank[3];
-    public Maze1(String gameType)
+    /**
+     * Makes a new maze that is randomly generated.
+     * Note that the "problem" label should never show up, so please do 
+     * consider submitting a bug report if it does happen.
+     * 
+     * All methods in this class besides the constructor are private, because
+     * all of the game operating should be done in the parent class.
+     * 
+     * This class in only responsible for generating the starting objects 
+     * specific to this maze.
+     */
+    protected Maze1(String gameType)
     {    
         super(gameType); 
-        cx = getWidth()/2; cy = getHeight()/2;
         if(gameType=="multiplayer"){
             makeObjects2();
             makeLimits();
@@ -28,6 +38,11 @@ public class Maze1 extends Game
             addObject(problem, cx, cy);
         }
     }
+    /**
+     * creates the tanks for singleplayer.
+     * In this case, the player tank is in the middle while the 3 dummy tanks
+     * are randomly generated around the map.
+     */
     private void makeObjects(){
         red = new Tank("red");
         Random rand = new Random();
@@ -42,6 +57,10 @@ public class Maze1 extends Game
         addObject(red, cx, cy+37);
         red.turn(rand.nextInt(360));
     }
+    /**
+     * creates the tanks for multiplayer.
+     * In this case, both tanks spawn randomly on opposite sides of the map.
+     */
     private void makeObjects2(){
         red = new Tank("red");
         green = new Tank("green");
@@ -53,6 +72,11 @@ public class Maze1 extends Game
         green.turn(rand.nextInt(360));
     }
     
+    /**
+     * creates the random maze.
+     * This attempts to create 32 horizontal and 32 vertical walls, ignoring 
+     * whether they overlap on the same tile or not.
+     */
     private void makeMaze(){
         Random rand = new Random();
         for(int i=0; i<32; i++){

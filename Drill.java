@@ -5,7 +5,7 @@ public class Drill extends Bullet
     public Drill(Tank own, double dir){
         super(own, dir, true);
         getImage().scale(8, 8);
-        vx *= 4; vy *= 4;
+        vx *= 2.5; vy *= 2.5;
     }
     
     /**

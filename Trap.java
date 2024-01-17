@@ -8,11 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Trap extends SmoothMover
 {
-    // when funnyTraps is true, traps explode indefinitely once triggered
-    public static boolean funnyTraps = false;
+    // when isFunny is true, traps explode indefinitely once triggered
+    public static boolean isFunny = false;
     public static boolean toggleFunny(){
-        funnyTraps = !funnyTraps;
-        return funnyTraps;
+        isFunny = !isFunny;
+        return isFunny;
     }
     
     boolean isAnimating = true;
@@ -59,10 +59,10 @@ public class Trap extends SmoothMover
         if(isExploding){
             if(timer==null) timer = new SimpleTimer();
             if(timer.millisElapsed()<250) return;
-            if(funnyTraps&&timer.millisElapsed()<500) return;
-            if(funnyTraps) world.addObject(new Bomb(true, 0.1, true), getX(), getY());
+            if(isFunny&&timer.millisElapsed()<500) return;
+            if(isFunny) world.addObject(new Bomb(true, 0.1, true), getX(), getY());
             else world.addObject(new Bomb(true, 4, false), getX(), getY());
-            if(!funnyTraps) world.removeObject(this);
+            if(!isFunny) world.removeObject(this);
             if(world.gameType == "singleplayer") world.removeObject(this);
         }
     }

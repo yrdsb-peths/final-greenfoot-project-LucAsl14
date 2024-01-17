@@ -1,18 +1,20 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class PauseScreen here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * This world is called whenever the player presses ESCAPE in-game.
+ * As its name suggests, this pauses the game, and shows the continue,
+ * settings, and quit button.
  */
 public class PauseScreen extends World
 {
+    /**
+     * constructor for PauseScreen
+     */
     public PauseScreen(Game world)
     {    
         super(1200, 600, 1);
         setBackground("tankBackground.jpg");
-        int cx = getWidth()/2, cy = getHeight()/2;
+        final int cx = getWidth()/2, cy = getHeight()/2;
         Label title = new Label("Game Paused", 90);
         Button toContinue = new Button("Continue", 70, "continue", world);
         Button settings = new Button("Settings", 70, "settings", this);

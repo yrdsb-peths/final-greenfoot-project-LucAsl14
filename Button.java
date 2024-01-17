@@ -19,6 +19,16 @@ public class Button extends Label
         this(text, size, command);
         this.world = world;
     }
+    public void addedToWorld(World world){
+        if(command=="toggleFunnyTraps" && Trap.isFunny
+         ||command=="toggleGatling" && Powerup.isActive[0]
+         ||command=="toggleRemote" && Powerup.isActive[1]
+         ||command=="toggleBomb" && Powerup.isActive[2]
+         ||command=="toggleTrap" && Powerup.isActive[3]
+         ||command=="toggleRay" && Powerup.isActive[4]
+         ||command=="toggleDrill" && Powerup.isActive[5])
+         setFillColor(Color.GRAY);
+    }
     public void act(){
         if(Greenfoot.mousePressed(this)){
             setFillColor(Color.GRAY);
@@ -36,8 +46,41 @@ public class Button extends Label
             if(command == "settings"&& world!=null){
                 Greenfoot.setWorld(new Settings(world));
             }
-            if(command == "toggleTraps"){
-                if(Trap.toggleFunny()==true){
+            if(command == "toggleFunnyTraps"){
+                if(Trap.toggleFunny()){
+                    setFillColor(Color.GRAY);
+                }
+            }
+            if(command == "powerups"&& world!=null){
+                Greenfoot.setWorld(new PowerupSettings(world));
+            }
+            if(command == "toggleGatling"){
+                if(Powerup.togglePowerup(0)){
+                    setFillColor(Color.GRAY);
+                }
+            }
+            if(command == "toggleRemote"){
+                if(Powerup.togglePowerup(1)){
+                    setFillColor(Color.GRAY);
+                }
+            }
+            if(command == "toggleBomb"){
+                if(Powerup.togglePowerup(2)){
+                    setFillColor(Color.GRAY);
+                }
+            }
+            if(command == "toggleTrap"){
+                if(Powerup.togglePowerup(3)){
+                    setFillColor(Color.GRAY);
+                }
+            }
+            if(command == "toggleRay"){
+                if(Powerup.togglePowerup(4)){
+                    setFillColor(Color.GRAY);
+                }
+            }
+            if(command == "toggleDrill"){
+                if(Powerup.togglePowerup(5)){
                     setFillColor(Color.GRAY);
                 }
             }
@@ -46,11 +89,6 @@ public class Button extends Label
             }
             if(command == "quit"){
                 Greenfoot.setWorld(new TitleScreen());
-            }
-        }
-        if(command == "toggleTraps"){
-            if(Trap.funnyTraps==true){
-                setFillColor(Color.GRAY);
             }
         }
     }

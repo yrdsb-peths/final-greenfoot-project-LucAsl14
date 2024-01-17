@@ -16,9 +16,12 @@ public class Powerup extends Actor
         new GreenfootImage("death_ray.png"),
         new GreenfootImage("wall_delete.png")
         };
+    //          power indices = { gatling, remote, frag, trap,  ray, drill };
+    int[]             chances = {     100,    100,  100,  100,  100,   100 };
+    static boolean[] isActive = {    true,   true, true, true, true,  true };
     /**
      * 0 - gatling gun
-     * 1 - remove control
+     * 1 - remote control
      * 2 - frag bomb
      * 3 - booby trap
      * 4 - death ray
@@ -27,7 +30,18 @@ public class Powerup extends Actor
     int powerIndex;
     public Powerup(){
         Random rand = new Random();
+        int roll = rand.nextInt(100)+1;
         powerIndex = rand.nextInt(powerups.length);
+        while(roll > chances[powerIndex]){
+            roll = rand.nextInt(100);
+            powerIndex = rand.nextInt(powerups.length);
+        }
+        setImage(powerups[powerIndex]);
+        getImage().scale(50, 50);
+    }
+    // for pre-defined powerups
+    public Powerup(int index){
+        powerIndex = index;
         setImage(powerups[powerIndex]);
         getImage().scale(50, 50);
     }
@@ -37,6 +51,10 @@ public class Powerup extends Actor
             return;
         }
         new GreenfootSound("metallic-ting.mp3").play();
+    }
+    public static boolean togglePowerup(int index){
+        isActive[index] = !isActive[index];
+        return isActive[index];
     }
     public String toString(){
         if(powerIndex == 0) return "gatling";
