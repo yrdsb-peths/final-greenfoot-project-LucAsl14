@@ -10,9 +10,11 @@ public class DeathRay extends Bullet
 {
     double homedX, homedY;
     final int homingStrength = 1;
+    final int homingDelay = 1;
     final double velocity = 25;
     int homingCount = 0;
     Tank target;
+    boolean needNewTarget = false;
     public DeathRay(Tank owner, double dir){
         super(owner, dir);    
         lifeSpan*=100;
@@ -50,6 +52,15 @@ public class DeathRay extends Bullet
         turnTowards(homedX, homedY);
         move(velocity);
         checkKill();
+        if(needNewTarget){
+            needNewTarget = false;
+            List<Tank> targets = getObjectsInRange(3000, Tank.class);
+            if(targets.size()>=2){
+                targets.remove(owner);
+                target = targets.get(0);
+                updateHoming(target);
+            }
+        }
         if(checkEdge()) return;       
     }
     private boolean checkEdge(){
@@ -81,11 +92,26 @@ public class DeathRay extends Bullet
              } else {
                  turnSpeed = speed;
              }
-            if(homingCount==3){
+            if(homingCount==homingDelay){
                 turn(turnSpeed);
                 homingCount=0;
             }
             homingCount++;
         }        
+    }
+    /**
+     * Override of Bullet's checkKill
+     */
+    public void checkKill(){
+        if(isTouching(Tank.class)){
+            Actor dying = getOneIntersectingObject(Tank.class);
+            Tank dyingTank;
+            if(dying instanceof Tank){
+                needNewTarget = true;
+                dyingTank = (Tank) dying;
+                dyingTank.gameOver();
+                lifeSpan = 0;
+            }
+        }
     }
 }

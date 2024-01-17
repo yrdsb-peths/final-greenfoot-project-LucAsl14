@@ -10,6 +10,7 @@ public class Bullet extends SmoothMover
     double vx, vy;
     boolean isSmall = false;
     int lifeSpan = 800;
+    GreenfootSound bounce = new GreenfootSound("ping_pong_ball.mp3");
     /**
      * Creates a new bullet with an owner and a direction
      */
@@ -35,11 +36,6 @@ public class Bullet extends SmoothMover
         // makes the bullet leave the barrel of the gun instead of exploding inside
         while(owner!=null&&intersects(owner)&&!isTouching(Wall.class)){
             move();
-            if(isAtEdge()){
-                world.removeObject(this);
-                if(!isSmall) owner.bulletsShot--;
-                return;
-            }
         }
     }
     public void act()
@@ -64,13 +60,9 @@ public class Bullet extends SmoothMover
      * Checks for wall bounces
      */
     public void checkBounce(){
-        // world wall bounces
-        if(getY()<=0||getY()>=getWorld().getHeight()-1)
-            vy*=-1;
-        if(getX()<=0||getX()>=getWorld().getWidth()-1)
-            vx*=-1;
         if(isTouching(Wall.class)){
             Wall wall = (Wall) getOneIntersectingObject(Wall.class);
+            bounce.play();
             if(wall instanceof LeftVerticalWall){
                 vx=-Math.abs(vx);
             }
@@ -92,13 +84,9 @@ public class Bullet extends SmoothMover
      */
     public void checkKill(){
         if(isTouching(Tank.class)){
-            Actor dying = getOneIntersectingObject(Tank.class);
-            Tank dyingTank;
-            if(dying instanceof Tank){
-                dyingTank = (Tank) dying;
-                dyingTank.gameOver();
-                lifeSpan = 0;
-            }
+            Tank dyingTank = (Tank) getOneIntersectingObject(Tank.class);
+            dyingTank.gameOver();
+            lifeSpan = 0;
         }
     }
 }

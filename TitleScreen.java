@@ -6,21 +6,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class TitleScreen extends World
 {
-
+    int cx = getWidth()/2, cy = getHeight()/2;
     /**
-     * Constructor for objects of class TitleScreen.
-     * 
+     * Constructor for title screen
      */
     public TitleScreen()
     {    
         super(1200, 600, 1);
-        int cx = getWidth()/2, cy = getHeight()/2;
         setBackground("tankBackground.jpg");
+        makeTitleScreen();
+    }
+    /**
+     * Makes all the text and buttons
+     */
+    private void makeTitleScreen(){
         Label title = new Label("Troubled Tanks", 80);
         Button singleplayer = new Button("1 player", 80, "singleplayer");
         Button multiplayer = new Button("2 players", 80, "multiplayer");
         Button rules = new Button("rules", 80, "rules");
-        Button settings = new Button("settings", 80, "settings");
+        Button settings = new Button("settings", 80, "settings", this);
         
         title.setLineColor(Color.RED);
         singleplayer.setLineColor(Color.RED);
@@ -33,7 +37,6 @@ public class TitleScreen extends World
         addObject(multiplayer, cx+400, cy+200);
         addObject(rules, cx, cy+100);
         addObject(settings, cx, cy+200);
-        
         addObject(new Explosion(100), 1005, 151);
     }
 }
